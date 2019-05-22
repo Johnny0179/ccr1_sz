@@ -13,41 +13,38 @@
 #include "Motion.h"
 #include "24cxx.h"
 
-
-
-/////////////////////////UCOSIIÈÎÎñ¶ÑÕ»ÉèÖÃ///////////////////////////////////
-//START ÈÎÎñ
-//ÉèÖÃÈÎÎñÓÅÏÈ¼¶
-#define START_TASK_PRIO      			10 //¿ªÊ¼ÈÎÎñµÄÓÅÏÈ¼¶ÉèÖÃÎª×îµÍ
-//ÉèÖÃÈÎÎñ¶ÑÕ»´óÐ¡
-#define START_STK_SIZE  				64
-//´´½¨ÈÎÎñ¶ÑÕ»¿Õ¼ä	
+/////////////////////////UCOSIIï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿?///////////////////////////////////
+//START ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+#define START_TASK_PRIO 10 //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½Î?ï¿½ï¿½ï¿?
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ð?
+#define START_STK_SIZE 64
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Õ¼ï¿?
 OS_STK START_TASK_STK[START_STK_SIZE];
-//ÈÎÎñº¯Êý½Ó¿Ú
-void start_task(void *pdata);	
- 			   
-//LEDÈÎÎñ¼°·äÃÛÆ÷£¬ÓÃÓÚÖ¸Ê¾»òµ÷ÊÔ
-//ÉèÖÃÈÎÎñÓÅÏÈ¼¶
-#define LED_TASK_PRIO       			50 
-//ÉèÖÃÈÎÎñ¶ÑÕ»´óÐ¡
-#define LED_STK_SIZE  		    		64
-//´´½¨ÈÎÎñ¶ÑÕ»¿Õ¼ä	
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
+void start_task(void *pdata);
+
+//LEDï¿½ï¿½ï¿½ñ¼°·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½ï¿½ï¿½ï¿?
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+#define LED_TASK_PRIO 50
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ð?
+#define LED_STK_SIZE 64
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Õ¼ï¿?
 OS_STK LED_TASK_STK[LED_STK_SIZE];
-//ÈÎÎñº¯Êý½Ó¿Ú
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
 void led_task(void *pdata);
 
-
-//ºÍÉÏÎ»»úPCµÄÍ¨ÐÅÈÎÎñ
-//ÉèÖÃÈÎÎñÓÅÏÈ¼¶
-#define PcCom_TASK_PRIO       			15 
-//ÉèÖÃÈÎÎñ¶ÑÕ»´óÐ¡
-#define PcCom_STK_SIZE  					256
-//´´½¨ÈÎÎñ¶ÑÕ»¿Õ¼ä	
+//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½PCï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+#define PcCom_TASK_PRIO 15
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ð?
+#define PcCom_STK_SIZE 256
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Õ¼ï¿?
 OS_STK PcCom_TASK_STK[PcCom_STK_SIZE];
-//ÈÎÎñº¯Êý½Ó¿Ú
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
 void PcCom_task(void *pdata);
 
-//"ÈÎÎñ¹æ»®"ÈÎÎñ
+//"ï¿½ï¿½ï¿½ï¿½æ»?"ï¿½ï¿½ï¿½ï¿½
 #define TaskPlan_TASK_PRIO 8
 
 #define TaskPlan_STK_SIZE 256
@@ -56,226 +53,220 @@ OS_STK TaskPlan_TASK_STK[TaskPlan_STK_SIZE];
 
 void TaskPlan_task(void *pdata);
 
-
-//ÔË¶¯¿ØÖÆÈÎÎñ //Trajectory planning
+//ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ //Trajectory planning
 #define MotionCtrl_TASK_PRIO 5
 
 #define MotionCtrl_STK_SIZE 256
 
-OS_STK MotionCtrl_TASK_STK [MotionCtrl_STK_SIZE];
+OS_STK MotionCtrl_TASK_STK[MotionCtrl_STK_SIZE];
 
 void MotionCtrl_task(void *pdata);
 
-//Ö´ÐÐ»ú¹¹Çý¶¯Æ÷ Í¨ÐÅÈÎÎñ£¬Ä¿Ç°ÎªRS485
+//Ö´ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ç°ÎªRS485
 #define ServoCom_TASK_PRIO 4
 
 #define ServoCom_STK_SIZE 256
 
-OS_STK ServoCom_TASK_STK [ServoCom_STK_SIZE];
+OS_STK ServoCom_TASK_STK[ServoCom_STK_SIZE];
 
 void ServoCom_task(void *pdata);
 
-
-//´«¸ÐÆ÷¶ÁÈ¡ÈÎÎñ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 #define RdSensor_TASK_PRIO 20
 
 #define RdSensor_STK_SIZE 256
 
-OS_STK RdSensor_TASK_STK [RdSensor_STK_SIZE];
+OS_STK RdSensor_TASK_STK[RdSensor_STK_SIZE];
 
 void RdSensor_task(void *pdata);
 
-//°´¼üÉ¨ÃèÈÎÎñ
-//ÉèÖÃÈÎÎñÓÅÏÈ¼¶
-#define KEY_TASK_PRIO       			3 
-//ÉèÖÃÈÎÎñ¶ÑÕ»´óÐ¡
-#define KEY_STK_SIZE  					256//64
-//´´½¨ÈÎÎñ¶ÑÕ»¿Õ¼ä	
+//ï¿½ï¿½ï¿½ï¿½É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+#define KEY_TASK_PRIO 3
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ð?
+#define KEY_STK_SIZE 256 //64
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½Õ¼ï¿?
 OS_STK KEY_TASK_STK[KEY_STK_SIZE];
-//ÈÎÎñº¯Êý½Ó¿Ú
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
 void key_task(void *pdata);
 
-//ÐÅºÅÁ¿£¬ÓÃÓÚ½ø³ÌÍ¨ÐÅ
+//ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
 
-//OS_EVENT * sem_printf;		//´òÓ¡ÐÅºÅÁ¿Ö¸Õë	 	 
+//OS_EVENT * sem_printf;		//ï¿½ï¿½Ó¡ï¿½Åºï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 
 int main(void)
-{ 
- 
-	delay_init(168);		  //³õÊ¼»¯ÑÓÊ±º¯Êý
+{
+
+	delay_init(168); //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	uart_init(115200);
-	//LED_Init();		  		//³õÊ¼»¯ÓëLEDÁ¬½ÓµÄÓ²¼þ½Ó¿Ú
+	//LED_Init();		  		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½LEDï¿½ï¿½ï¿½Óµï¿½Ó²ï¿½ï¿½ï¿½Ó¿ï¿½
 	HardWare_Init();
 	AT24CXX_Init();
 	Adc_Init();
- 	BEEP_Init();			//·äÃùÆ÷³õÊ¼»¯	
-	//KEY_Init();				//°´¼ü³õÊ¼»¯
-	OSInit();  	 			//³õÊ¼»¯UCOSII		 			  
- 	OSTaskCreate(start_task,(void *)0,(OS_STK *)&START_TASK_STK[START_STK_SIZE-1],START_TASK_PRIO );//´´½¨ÆðÊ¼ÈÎÎñ
-	OSStart();	
+	BEEP_Init(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+	//KEY_Init();				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+	OSInit();																																														 //ï¿½ï¿½Ê¼ï¿½ï¿½UCOSII
+	OSTaskCreate(start_task, (void *)0, (OS_STK *)&START_TASK_STK[START_STK_SIZE - 1], START_TASK_PRIO); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+	OSStart();
 }
 
-//¿ªÊ¼ÈÎÎñ
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 void start_task(void *pdata)
 {
-    OS_CPU_SR cpu_sr=0;
-	pdata = pdata; 		  
-	//sem_printf=OSSemCreate(1);		//´´½¨´òÓ¡ÐÅºÅÁ¿			
-	
-	
-	OSStatInit();					//³õÊ¼»¯Í³¼ÆÈÎÎñ.ÕâÀï»áÑÓÊ±1ÃëÖÓ×óÓÒ	
- 	OS_ENTER_CRITICAL();			//½øÈëÁÙ½çÇø(ÎÞ·¨±»ÖÐ¶Ï´ò¶Ï)    
- 	OSTaskCreate(led_task,(void *)0,(OS_STK*)&LED_TASK_STK[LED_STK_SIZE-1],LED_TASK_PRIO);   
- 	//OSTaskCreate(key_task,(void *)0,(OS_STK*)&KEY_TASK_STK[KEY_STK_SIZE-1],KEY_TASK_PRIO);	 				   
-	OSTaskCreate(PcCom_task,(void *)0,(OS_STK*)&PcCom_TASK_STK[PcCom_STK_SIZE-1],PcCom_TASK_PRIO);	
-	OSTaskCreate(TaskPlan_task,(void *)0,(OS_STK*)&TaskPlan_TASK_STK[TaskPlan_STK_SIZE-1],TaskPlan_TASK_PRIO);	
-	OSTaskCreate(MotionCtrl_task,(void *)0,(OS_STK*)&MotionCtrl_TASK_STK[MotionCtrl_STK_SIZE-1],MotionCtrl_TASK_PRIO);	
-	OSTaskCreate(ServoCom_task,(void *)0,(OS_STK*)&ServoCom_TASK_STK[ServoCom_STK_SIZE-1],ServoCom_TASK_PRIO);
-	OSTaskCreate(RdSensor_task,(void *)0,(OS_STK*)&RdSensor_TASK_STK[RdSensor_STK_SIZE-1],RdSensor_TASK_PRIO);		
- 	OSTaskSuspend(START_TASK_PRIO);	//¹ÒÆðÆðÊ¼ÈÎÎñ.
-	OS_EXIT_CRITICAL();				//ÍË³öÁÙ½çÇø(¿ÉÒÔ±»ÖÐ¶Ï´ò¶Ï)
-}	  
-//LEDÈÎÎñ
+	OS_CPU_SR cpu_sr = 0;
+	pdata = pdata;
+	//sem_printf=OSSemCreate(1);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½Åºï¿½ï¿½ï¿½
+
+	OSStatInit();				 //ï¿½ï¿½Ê¼ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê?1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	OS_ENTER_CRITICAL(); //ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½(ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Ð¶Ï´ï¿½ï¿?)
+	OSTaskCreate(led_task, (void *)0, (OS_STK *)&LED_TASK_STK[LED_STK_SIZE - 1], LED_TASK_PRIO);
+	//OSTaskCreate(key_task,(void *)0,(OS_STK*)&KEY_TASK_STK[KEY_STK_SIZE-1],KEY_TASK_PRIO);
+	OSTaskCreate(PcCom_task, (void *)0, (OS_STK *)&PcCom_TASK_STK[PcCom_STK_SIZE - 1], PcCom_TASK_PRIO);
+	OSTaskCreate(TaskPlan_task, (void *)0, (OS_STK *)&TaskPlan_TASK_STK[TaskPlan_STK_SIZE - 1], TaskPlan_TASK_PRIO);
+	OSTaskCreate(MotionCtrl_task, (void *)0, (OS_STK *)&MotionCtrl_TASK_STK[MotionCtrl_STK_SIZE - 1], MotionCtrl_TASK_PRIO);
+	OSTaskCreate(ServoCom_task, (void *)0, (OS_STK *)&ServoCom_TASK_STK[ServoCom_STK_SIZE - 1], ServoCom_TASK_PRIO);
+	OSTaskCreate(RdSensor_task, (void *)0, (OS_STK *)&RdSensor_TASK_STK[RdSensor_STK_SIZE - 1], RdSensor_TASK_PRIO);
+	OSTaskSuspend(START_TASK_PRIO); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½.
+	OS_EXIT_CRITICAL();							//ï¿½Ë³ï¿½ï¿½Ù½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ð¶Ï´ï¿½ï¿?)
+}
+//LEDï¿½ï¿½ï¿½ï¿½
 void led_task(void *pdata)
-{   
+{
 	static u32 Steps_Last = 0;
-//	INT8U err;
+	//	INT8U err;
 	LED1 = 1; //red led off
 	Steps_Last = ptrCfgMotionPar->RunSteps;
-	ptrMotionBlk->StateOfCharge = 500; //Ê£Óà50%µçÁ¿
-	ptrMotionBlk->BatVolt = 240;//µç³ØµçÑ¹24V x0.1
-	ptrMotionBlk->BatCurrent = 80;//µçÁ÷8A x0.1
-	ptrMotionBlk->BatTemp = 456;// ÎÂ¶È x0.1
-	
+	ptrMotionBlk->StateOfCharge = 500; //Ê£ï¿½ï¿½50%ï¿½ï¿½ï¿½ï¿½
+	ptrMotionBlk->BatVolt = 240;			 //ï¿½ï¿½Øµï¿½Ñ?24V x0.1
+	ptrMotionBlk->BatCurrent = 80;		 //ï¿½ï¿½ï¿½ï¿½8A x0.1
+	ptrMotionBlk->BatTemp = 456;			 // ï¿½Â¶ï¿½ x0.1
+
 	DebugFlag = 0;
-	while(1)
+	while (1)
 	{
-		
-		 //µ÷ÊÔÃüÁî´¦Àí
-		 if(DebugFlag == 0)
-		 {
-			 if(Para[DEBUG_EN_ADDR] == DEBUG_EN_CMD)
-			 {
-				 DebugFlag = 1;
-				 Para[DEBUG_EN_ADDR] = 0;
-			 }
-		 }
-		 else
-		 {
-			 if(Para[DEBUG_EN_ADDR] == DEBUG_DIS_CMD)
-			 {
-				 ptrMotionBlk->MotionCmdCode = 14; //È¡Ïûµ÷ÊÔÄ£Ê½Ê±£¬´ÓÐÂ»Ø1´Î0
-				 delay_ms(10);
-				 DebugFlag = 0;
-				 Para[DEBUG_EN_ADDR] = 0;
-			 }				 
-		 }
-		 
-		 //Ð´eepromÃüÁî
-			if(Para[SAVE_PAR_ADDR] == SAVE_PAR_CMD)
-			{				
-				AT24CXX_Write(0,(u8 *)(Para),(SAVE_PAR_NUM*2));	//´ÓÖ¸¶¨µØÖ·¿ªÊ¼Ð´ÈëÖ¸¶¨³¤¶ÈµÄÊý¾Ý
-				//void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead);   	//´ÓÖ¸¶¨µØÖ·¿ªÊ¼¶Á³öÖ¸¶¨³¤¶ÈµÄÊý¾Ý
-				Para[SAVE_PAR_ADDR] = 0;
-			}
 
-			{
-				
-				if(Steps_Last != ptrCfgMotionPar->RunSteps)
-				{
-					Steps_Last = ptrCfgMotionPar->RunSteps;
-					AT24CXX_Write(STEPS_CNT_BASE*2,(u8 *)(&Para[STEPS_CNT_BASE]),2);
-				}
-			}
-			
-			LED0=!LED0;//yellow led
-			if(ptrMotionBlk->ErrCode != 0)
-			{
-				LED1 = ~LED1; // red led blink
-			}
-			else
-			{
-				LED1 = 1; //off state
-			}
-	   //LED0=!LED0;
-//		 LED1=!LED1;
-
-	   delay_ms(1000);
-     //OSSemPend(sem_printf,0,&err);		 
-		 //printf("led_task \n");
-		 //OSSemPost(sem_printf);
-	}									 
-}	  
-
-
-//°´¼üÉ¨ÃèÈÎÎñ
-void key_task(void *pdata)
-{	
-	//u8 err;
-	u8 key;		    						 
-	while(1)
-	{		
-		key=KEY_Scan(0);
-		
-		if(key==KEY0_PRES)
-		{			
-
-			printf("key0,dGlbReg[255]:%d \n",dGlbReg[255]);	
-		}
-		else if (key==KEY2_PRES)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î´¦ï¿½ï¿½
+		if (DebugFlag == 0)
 		{
-			printf("key2 \n");		 
+			if (Para[DEBUG_EN_ADDR] == DEBUG_EN_CMD)
+			{
+				DebugFlag = 1;
+				Para[DEBUG_EN_ADDR] = 0;
+			}
 		}
-		else if (key==WKUP_PRES)
+		else
 		{
-			printf("keyup \n");		  
+			if (Para[DEBUG_EN_ADDR] == DEBUG_DIS_CMD)
+			{
+				ptrMotionBlk->MotionCmdCode = 14; //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½1ï¿½ï¿½0
+				delay_ms(10);
+				DebugFlag = 0;
+				Para[DEBUG_EN_ADDR] = 0;
+			}
 		}
-		else if(key==KEY1_PRES)
+
+		//Ð´eepromï¿½ï¿½ï¿½ï¿½
+		if (Para[SAVE_PAR_ADDR] == SAVE_PAR_CMD)
 		{
-		 printf("key1 \n");					   				   
+			AT24CXX_Write(0, (u8 *)(Para), (SAVE_PAR_NUM * 2)); //ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ê¼Ð´ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½
+			//void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead);   	//ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½
+			Para[SAVE_PAR_ADDR] = 0;
 		}
-		
-		//OSSemPend(sem_printf,0,&err);		
-		//printf("key_task \n");
+
+		{
+
+			if (Steps_Last != ptrCfgMotionPar->RunSteps)
+			{
+				Steps_Last = ptrCfgMotionPar->RunSteps;
+				AT24CXX_Write(STEPS_CNT_BASE * 2, (u8 *)(&Para[STEPS_CNT_BASE]), 2);
+			}
+		}
+
+		LED0 = !LED0; //yellow led
+		if (ptrMotionBlk->ErrCode != 0)
+		{
+			LED1 = ~LED1; // red led blink
+		}
+		else
+		{
+			LED1 = 1; //off state
+		}
+		//LED0=!LED0;
+		//		 LED1=!LED1;
+
+		delay_ms(1000);
+		//OSSemPend(sem_printf,0,&err);
+		//printf("led_task \n");
 		//OSSemPost(sem_printf);
- 		delay_ms(1000);
 	}
 }
 
+//ï¿½ï¿½ï¿½ï¿½É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void key_task(void *pdata)
+{
+	//u8 err;
+	u8 key;
+	while (1)
+	{
+		key = KEY_Scan(0);
 
-//Í¨ÐÅÈÎÎñ
+		if (key == KEY0_PRES)
+		{
+
+			printf("key0,dGlbReg[255]:%d \n", dGlbReg[255]);
+		}
+		else if (key == KEY2_PRES)
+		{
+			printf("key2 \n");
+		}
+		else if (key == WKUP_PRES)
+		{
+			printf("keyup \n");
+		}
+		else if (key == KEY1_PRES)
+		{
+			printf("key1 \n");
+		}
+
+		//OSSemPend(sem_printf,0,&err);
+		//printf("key_task \n");
+		//OSSemPost(sem_printf);
+		delay_ms(1000);
+	}
+}
+
+//Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void PcCom_task(void *pdata)
 {
-//	static u8 aa = 0;
-	RS485Init();	
+	//	static u8 aa = 0;
+	RS485Init();
 	printf("uart1 init ok \n");
-	while(1)
-	{ 
+	while (1)
+	{
 		Protocol_RS485();
 		// printf("In PcCom_task \n");
-		 //USART1->DR = aa++;
+		//USART1->DR = aa++;
 
-	   //delay_ms(1000); 		 
-	}									 
+		//delay_ms(1000);
+	}
 }
 
-//ÈÎÎñ¹æ»® ÈÎÎñ
+//ï¿½ï¿½ï¿½ï¿½æ»? ï¿½ï¿½ï¿½ï¿½
 void TaskPlan_task(void *pdata)
 {
-	while(1)
-	{ 
-		 //printf("In TaskPlan_task \n");	
-	   delay_ms(1000); 		 
-	}									 
+	while (1)
+	{
+		//printf("In TaskPlan_task \n");
+		delay_ms(1000);
+	}
 }
-
 
 void MotionCtrl_task(void *pdata)
 {
-	while(1)
+	while (1)
 	{
-		//printf("In MotionCtrl_task \n");	
-		delay_ms(1000); 	
+		//printf("In MotionCtrl_task \n");
+		delay_ms(1000);
 	}
 }
 
@@ -297,41 +288,39 @@ void ServoCom_task(void *pdata)
 {
 	CanInit();
 
-	//»Ö¸´eeprom ²ÎÊý
-	AT24CXX_Read(0,(u8 *)(Para),(SAVE_PAR_NUM*2));   	//´ÓÖ¸¶¨µØÖ·¿ªÊ¼¶Á³öÖ¸¶¨³¤¶ÈµÄÊý¾Ý
-	if(Para[Judge_SAVE_PAR_ADDR] != 0x55aa)
-	{//Ê×´Î³õÊ¼»¯²ÎÊý
+	//ï¿½Ö¸ï¿½eeprom ï¿½ï¿½ï¿½ï¿½
+	AT24CXX_Read(0, (u8 *)(Para), (SAVE_PAR_NUM * 2)); //ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½
+	if (Para[Judge_SAVE_PAR_ADDR] != 0x55aa)
+	{ //ï¿½×´Î³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Para[Judge_SAVE_PAR_ADDR] = 0x55aa;
-		Para[SLAVE_ADDR] = 1 ;//Í¨ÐÅµØÖ·
-		MotionInit();		
-		AT24CXX_Write(0,(u8 *)(Para),(SAVE_PAR_NUM*2));	//´ÓÖ¸¶¨µØÖ·¿ªÊ¼Ð´ÈëÖ¸¶¨³¤¶ÈµÄÊý¾Ý		
+		Para[SLAVE_ADDR] = 1; //Í¨ï¿½Åµï¿½Ö·
+		MotionInit();
+		AT24CXX_Write(0, (u8 *)(Para), (SAVE_PAR_NUM * 2)); //ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ê¼Ð´ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½
 	}
-	
+
 	VarClear();
 	SlaveIdAddr = Para[SLAVE_ADDR];
-	//MotorInit();	
+	//MotorInit();
 	ptrCfgMotionPar->pwr_en = 3;
-	
-	while(1)
+
+	while (1)
 	{
-	//	Para[9] = SlaveIdAddr;
+		//	Para[9] = SlaveIdAddr;
 		//HandleCan();
 		HandleMotion();
-	  //printf("In ServoCan_task \n");
-		delay_ms(2); 	
+		StateMonitor();
+		//printf("In ServoCan_task \n");
+		delay_ms(2);
 	}
 }
 
 void RdSensor_task(void *pdata)
 {
-	while(1)
+	while (1)
 	{
-		//printf("In RdSensor_task \n");			
-		HandleGPIO();//
-		ptrMotionBlk->Ai1 = Get_Adc(9);//¶ÁADC
-		delay_ms(100); 			
+		//printf("In RdSensor_task \n");
+		HandleGPIO();										//
+		ptrMotionBlk->Ai1 = Get_Adc(9); //ï¿½ï¿½ADC
+		delay_ms(100);
 	}
 }
-
-
-

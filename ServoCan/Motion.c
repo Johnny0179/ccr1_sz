@@ -48,12 +48,12 @@ void MotionInit(void)
 	ptrMotionBlk->DebugSpdSet = 500;
 	ptrMotionBlk->DebugPosSet = 500;
 	ptrCfgMotionPar->PosFactor = 100;
-	ptrCfgMotionPar->PosOpenLen = 3000;
+	ptrCfgMotionPar->PosOpenLen = 3000 * 0.7;
 
 	ptrCfgMotionPar->ClimbLenSameFlag = 1;
-	ptrCfgMotionPar->PosClimbLen = 1500;
-	ptrCfgMotionPar->PosClimbLen2 = 1500;
-	ptrCfgMotionPar->PosClimbLen3 = 1500;
+	ptrCfgMotionPar->PosClimbLen = 1500 * 0.7;
+	ptrCfgMotionPar->PosClimbLen2 = 1500 * 0.7;
+	ptrCfgMotionPar->PosClimbLen3 = 1500 * 0.7;
 
 	ptrCfgMotionPar->HomingSpd = 1000; //rpm
 	ptrCfgMotionPar->HomingSpdM5M6M7 = 200;
@@ -1642,7 +1642,6 @@ void Motion_Open_M1M2(u16 *state)
 {
 	u8 SlaveID = 1;
 	static u16 finish_flag = 0;
-
 	switch (*state)
 	{
 	case 0:
@@ -1680,6 +1679,7 @@ void Motion_Open_M1M2(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 		}
@@ -1692,6 +1692,7 @@ void Motion_Open_M1M2(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 		}
@@ -1758,6 +1759,7 @@ void Motion_Open_M3M4(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 		}
@@ -1770,6 +1772,7 @@ void Motion_Open_M3M4(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 		}
@@ -1840,6 +1843,7 @@ void Motion_Close_M1M2(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
 
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 			else
@@ -1868,6 +1872,7 @@ void Motion_Close_M1M2(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
 
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 			else
@@ -1958,6 +1963,7 @@ void Motion_Close_M3M4(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
 
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 			else
@@ -1986,6 +1992,7 @@ void Motion_Close_M3M4(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
 
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 			else
@@ -2166,7 +2173,7 @@ void Motion_Extend_M5M6M7(u16 *state)
 		delay_us(TIME_INTERVAL_US);
 
 		//
-		if ((ptrMotionBlk->M1orM3OpenState & 0x0001) != 0)
+		/* 		if ((ptrMotionBlk->M1orM3OpenState & 0x0001) != 0)
 		{
 			SlaveID = 1;
 			SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked - (ptrCfgMotionPar->PosOpenLen + ptrCfgMotionPar->PosOpenLen2) * ptrCfgMotionPar->PosFactor));
@@ -2187,7 +2194,7 @@ void Motion_Extend_M5M6M7(u16 *state)
 			SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked - (ptrCfgMotionPar->PosOpenLen + ptrCfgMotionPar->PosOpenLen2) * ptrCfgMotionPar->PosFactor));
 			ptrServ[SlaveID]->StatusWord &= ~0x0400;
 			pos_open2_locked = 0xffffffff;
-		}
+		} */
 		//
 		delay_us(TIME_INTERVAL_US);
 		SlaveID = 5;
@@ -2277,16 +2284,23 @@ void Motion_Extend_M5M6M7(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 			}
 			pos_open2_locked = 0; // 不让继续发送指令
-			//
+								  //
 		}
 		//
 
 		ptrMotionBlk->Pos6Pos5Err = (ptrServ[5]->PosPV - ptrServ[5]->PosLocked) - (ptrServ[6]->PosPV - ptrServ[6]->PosLocked);
 		ptrMotionBlk->Pos7Pos5Err = (ptrServ[5]->PosPV - ptrServ[5]->PosLocked) - (ptrServ[7]->PosPV - ptrServ[7]->PosLocked);
+
+		Para[290] = ptrMotionBlk->Pos6Pos5Err;
+		Para[291] = ptrMotionBlk->Pos7Pos5Err;
+		Para[292] = ptrMotionBlk->Pos7Pos5Err - ptrMotionBlk->Pos6Pos5Err;
+
 		if ((abs(ptrMotionBlk->Pos6Pos5Err) > POS_ERR_MAX) || (abs(ptrMotionBlk->Pos7Pos5Err) > POS_ERR_MAX) || (abs(ptrMotionBlk->Pos7Pos5Err - ptrMotionBlk->Pos6Pos5Err) > POS_ERR_MAX))
 		{
 			//方法1，直接在此断使能
 			//方法2：修改他们的指令，让他们停止。
+
+			// 取消推杆同步报错
 			delay_us(TIME_INTERVAL_US);
 			SlaveID = 5;
 			SetMotorAbsPos(SlaveID, (ptrServ[5]->PosPV));
@@ -2310,6 +2324,7 @@ void Motion_Extend_M5M6M7(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= (0x0001 << SlaveID);
 			}
 		}
@@ -2322,6 +2337,7 @@ void Motion_Extend_M5M6M7(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= (0x0001 << SlaveID);
 			}
 		}
@@ -2334,6 +2350,7 @@ void Motion_Extend_M5M6M7(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= (0x0001 << SlaveID);
 			}
 		}
@@ -2451,7 +2468,7 @@ void Motion_Shorten_M5M6M7(u16 *state)
 		ptrServ[SlaveID]->StatusWord &= ~0x0400;				//把定位完成复位
 		delay_us(TIME_INTERVAL_US);
 
-		if ((ptrMotionBlk->M1orM3OpenState & 0x0001) != 0)
+		/* if ((ptrMotionBlk->M1orM3OpenState & 0x0001) != 0)
 		{
 			SlaveID = 1;
 			SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked - (ptrCfgMotionPar->PosOpenLen + ptrCfgMotionPar->PosOpenLen2) * ptrCfgMotionPar->PosFactor));
@@ -2472,7 +2489,7 @@ void Motion_Shorten_M5M6M7(u16 *state)
 			SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked - (ptrCfgMotionPar->PosOpenLen + ptrCfgMotionPar->PosOpenLen2) * ptrCfgMotionPar->PosFactor));
 			ptrServ[SlaveID]->StatusWord &= ~0x0400;
 			pos_open2_locked = 0xffffffff;
-		}
+		} */
 
 		delay_us(TIME_INTERVAL_US);
 		SlaveID = 5;
@@ -2566,16 +2583,22 @@ void Motion_Shorten_M5M6M7(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 			}
 			pos_open2_locked = 0; // 不让继续发送指令
-			//
+								  //
 		}
 		//
 
 		ptrMotionBlk->Pos6Pos5Err = (ptrServ[5]->PosPV - ptrServ[5]->PosLocked) - (ptrServ[6]->PosPV - ptrServ[6]->PosLocked);
 		ptrMotionBlk->Pos7Pos5Err = (ptrServ[5]->PosPV - ptrServ[5]->PosLocked) - (ptrServ[7]->PosPV - ptrServ[7]->PosLocked);
+
+		Para[290] = ptrMotionBlk->Pos6Pos5Err;
+		Para[291] = ptrMotionBlk->Pos7Pos5Err;
+		Para[292] = ptrMotionBlk->Pos7Pos5Err - ptrMotionBlk->Pos6Pos5Err;
+
 		if ((abs(ptrMotionBlk->Pos6Pos5Err) > POS_ERR_MAX) || (abs(ptrMotionBlk->Pos7Pos5Err) > POS_ERR_MAX) || (abs(ptrMotionBlk->Pos7Pos5Err - ptrMotionBlk->Pos6Pos5Err) > POS_ERR_MAX))
 		{
 			//方法1，直接在此断使能
 			//方法2：修改他们的指令，让他们停止。
+
 			delay_us(TIME_INTERVAL_US);
 			SlaveID = 5;
 			SetMotorAbsPos(SlaveID, (ptrServ[5]->PosPV));
@@ -2599,6 +2622,7 @@ void Motion_Shorten_M5M6M7(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= (0x0001 << SlaveID);
 			}
 		}
@@ -2611,6 +2635,7 @@ void Motion_Shorten_M5M6M7(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= (0x0001 << SlaveID);
 			}
 		}
@@ -2623,6 +2648,7 @@ void Motion_Shorten_M5M6M7(u16 *state)
 			if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0)
 			{
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
+				delay_ms(1000);
 				finish_flag |= (0x0001 << SlaveID);
 			}
 		}
@@ -2692,7 +2718,7 @@ void Motion_Home_M1M2(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 			else
@@ -2717,7 +2743,7 @@ void Motion_Home_M1M2(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 			else
@@ -2793,7 +2819,7 @@ void Motion_Home_M3M4(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 			else
@@ -2818,7 +2844,7 @@ void Motion_Home_M3M4(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 			else
@@ -2961,7 +2987,7 @@ void Motion_Home_M5M6M7(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0001;
 			}
 			else
@@ -2989,7 +3015,7 @@ void Motion_Home_M5M6M7(u16 *state)
 				SetMotorCtrlword(SlaveID, 0x000F);
 
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0002;
 			}
 			else
@@ -3016,7 +3042,7 @@ void Motion_Home_M5M6M7(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
+				delay_ms(1000);
 				finish_flag |= 0x0004;
 			}
 			else
@@ -3115,7 +3141,6 @@ void Motion_Home_All(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
 				finish_flag |= 0x0001;
 			}
 			else
@@ -3140,7 +3165,6 @@ void Motion_Home_All(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
 				finish_flag |= 0x0002;
 			}
 			else
@@ -3165,7 +3189,6 @@ void Motion_Home_All(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
 				finish_flag |= 0x0004;
 			}
 			else
@@ -3190,7 +3213,6 @@ void Motion_Home_All(u16 *state)
 				delay_us(TIME_INTERVAL_US);
 				SetMotorCtrlword(SlaveID, 0x000F);
 				//SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord)); //利用暂停指令
-
 				finish_flag |= 0x0008;
 			}
 			else

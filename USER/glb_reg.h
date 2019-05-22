@@ -27,42 +27,42 @@ typedef __packed struct{
 	  s16 StatusWord;	
 	  s32 PosSV;//set
 	  s32 PosPV;//feedback
-	  s32 PosLocked; //对应抱紧电机m1/m2/m3/4,该位置表示为电机抱紧缆索对应的位置。对于 升降m4/m5/6 , 为两个平面最靠近的位置。此参数认为是参考点
-	  s32 PosLimit; // 另外一个方向的限位位置。	
+	  s32 PosLocked; //锟斤拷应锟斤拷锟斤拷锟斤拷锟絤1/m2/m3/4,锟斤拷位锟矫憋拷示为锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟接︼拷锟轿伙拷谩锟斤拷锟斤拷锟? 锟斤拷锟斤拷m4/m5/6 , 为锟斤拷锟斤拷平锟斤拷锟筋靠锟斤拷锟斤拷位锟矫★拷锟剿诧拷锟斤拷锟斤拷为锟角参匡拷锟斤拷
+	  s32 PosLimit; // 锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷锟轿晃伙拷谩锟?	
 		s32 SpdSV;
 	  s32 SpdPV;
 	  s16 MaxCurrenLimit; //TrqSV
 	  s16 TrqPV;		
 	  s16 MaxcurrentLocked;
-		u16 RdUpdate; //1:表示读完成，内容为最新。如果觉得要读,那么会把该为清0 .bit0:posSV, bit1:TrqPV, bit2:spdPV
+		u16 RdUpdate; //1:锟斤拷示锟斤拷锟斤拷桑锟斤拷锟斤拷锟轿?锟斤拷锟铰★拷锟斤拷锟斤拷锟斤拷锟揭?锟斤拷,锟斤拷么锟斤拷迅锟轿?锟斤拷0 .bit0:posSV, bit1:TrqPV, bit2:spdPV
 		u16 init_ok;
 		s32 PosPV_Last;
 }SERV_PAR_TYPE;
 
 typedef __packed struct{
-	u16 PosFactor; //调试位置因子设定，实际位置 = posset*DebugPosFactor;
-	s16 PosOpenLen; //抱闸松开的位置增量 ,actual = PosOpenLen * PosFactor;
-	u16 ClimbLenSameFlag; //0:不一样，1：一样
-	u16 PosClimbLen; //电推杆1升降的长度位置	
-	u16 PosClimbLen2;//电推杆2的长度
-	u16 PosClimbLen3;//电推杆3的长度
-	u16 HomingSpd; //回零速度
-	u16 CloseSpd; //电机抱紧的速度
-	u16 ClimbSpd; // 爬升速度。
-	s16 Iq1Limit; //抱紧电机电流限制
-	s16 DeltaPos;//回零的位置增量	
+	u16 PosFactor; //锟斤拷锟斤拷位锟斤拷锟斤拷锟斤拷锟借定锟斤拷实锟斤拷位锟斤拷 = posset*DebugPosFactor;
+	s16 PosOpenLen; //锟斤拷闸锟缴匡拷锟斤拷位锟斤拷锟斤拷锟斤拷 ,actual = PosOpenLen * PosFactor;
+	u16 ClimbLenSameFlag; //0:锟斤拷一锟斤拷锟斤拷1锟斤拷一锟斤拷
+	u16 PosClimbLen; //锟斤拷锟狡革拷1锟斤拷锟斤拷锟侥筹拷锟斤拷位锟斤拷	
+	u16 PosClimbLen2;//锟斤拷锟狡革拷2锟侥筹拷锟斤拷
+	u16 PosClimbLen3;//锟斤拷锟狡革拷3锟侥筹拷锟斤拷
+	u16 HomingSpd; //锟斤拷锟斤拷锟劫讹拷
+	u16 CloseSpd; //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷俣锟?
+	u16 ClimbSpd; // 锟斤拷锟斤拷锟劫度★拷
+	s16 Iq1Limit; //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟?
+	s16 DeltaPos;//锟斤拷锟斤拷锟轿伙拷锟斤拷锟斤拷锟?	
 	
 	u16 HomingSpdM5M6M7;
 	s16 DeltaPosM5M6M7;
 	u16 Iq2Limit;
 	
 	u16 PosOpenLen2;
-  s16 CompCoff; //速度补偿系数		
+  s16 CompCoff; //锟劫度诧拷锟斤拷系锟斤拷		
 	
 	u32 acc1;
 	u32 acc2;	
-	u32 RunSteps; //已运行的步数
-	u16 DirAutoChg;//方向自动修改配置
+	u32 RunSteps; //锟斤拷锟斤拷锟叫的诧拷锟斤拷
+	u16 DirAutoChg;//锟斤拷锟斤拷锟皆讹拷锟睫革拷锟斤拷锟斤拷
 	u16 Rev1[7];
 	u16 pwr_en;
 	
@@ -70,42 +70,42 @@ typedef __packed struct{
 } CFG_MOTION_PAR_TYPE;
 
 typedef __packed struct{
-	u16 MotionMode;  //0：自动模式或 1：单步模式	
+	u16 MotionMode;  //0锟斤拷锟皆讹拷模式锟斤拷 1锟斤拷锟斤拷锟斤拷模式	
 	u16 AutoCycleNum;//
 	u16 AutocycleLeft;//
-	u16 StepsPreSet; //预置多少步	
-	u16 StepsLeft;//剩余多少步	
-	u16 MotionDir; // 移动到方向	
+	u16 StepsPreSet; //预锟矫讹拷锟劫诧拷	
+	u16 StepsLeft;//剩锟斤拷锟斤拷俨锟?	
+	u16 MotionDir; // 锟狡讹拷锟斤拷锟斤拷锟斤拷	
 //
-	u16 MotionCtrlWord; // 设计为持续有效的命令，非1次性的
+	u16 MotionCtrlWord; // 锟斤拷锟轿?锟斤拷锟斤拷锟斤拷效锟斤拷锟斤拷锟筋，锟斤拷1锟斤拷锟皆碉拷
 	u16 AutoCycleEn; //	
-	u16 MotionPause; //连贯动作可以暂停，通过该位实现
-	u16 MotionCmdCode; //计划为1次性的命令
+	u16 MotionPause; //锟斤拷锟结动锟斤拷锟斤拷锟斤拷锟斤拷停锟斤拷通锟斤拷锟斤拷位实锟斤拷
+	u16 MotionCmdCode; //锟狡伙拷为1锟斤拷锟皆碉拷锟斤拷锟斤拷
 //	
 	u16 SysState; 	//系统状态
-	u16 MotionState;	//运动大状态机状态
+	u16 MotionState;	//锟剿讹拷锟斤拷状态锟斤拷状态
 //
 	u16 Rev1[8];
 /*	
-	u16 PosFactor; //调试位置因子设定，实际位置 = posset*DebugPosFactor;
-	s16 PosOpenLen; //抱闸松开的位置增量 ,actual = PosOpenLen * PosFactor;
-	u16 PosClimbLen; //升降的长度位置		
-	u16 HomingSpd; //回零速度
-	u16 CloseSpd; //电机抱紧的速度
-	u16 ClimbSpd; // 爬升速度。
-	s16 Iq1Limit; //抱紧电机电流限制
-	s16 DeltaPos;//回零的位置增量	
+	u16 PosFactor; //锟斤拷锟斤拷位锟斤拷锟斤拷锟斤拷锟借定锟斤拷实锟斤拷位锟斤拷 = posset*DebugPosFactor;
+	s16 PosOpenLen; //锟斤拷闸锟缴匡拷锟斤拷位锟斤拷锟斤拷锟斤拷 ,actual = PosOpenLen * PosFactor;
+	u16 PosClimbLen; //锟斤拷锟斤拷锟侥筹拷锟斤拷位锟斤拷		
+	u16 HomingSpd; //锟斤拷锟斤拷锟劫讹拷
+	u16 CloseSpd; //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷俣锟?
+	u16 ClimbSpd; // 锟斤拷锟斤拷锟劫度★拷
+	s16 Iq1Limit; //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟?
+	s16 DeltaPos;//锟斤拷锟斤拷锟轿伙拷锟斤拷锟斤拷锟?	
 */
 
 //
-	u16 MotionStateLast; //上1状态
-	u16 MotionStateNext; //下1状态
-	u16 SmallState; //初始状态为0,完成状态为128
-	u16 StatusWord; //状态字
-	u16 FuncInnerState;// 函数内部的状态，用于调试
-	u16 ErrCode;	//错误字
-	u16 CmdRepState; // 命令的响应状态 ，上一个命令能正常响应，则 输出0，NoErr， 如果不能响应，输出对应的错误吗？说明不能响应的原因。
-	u16 StartNodeFlag; //7个伺服，每个占1bit，分别为bit1...bit7
+	u16 MotionStateLast; //锟斤拷1状态
+	u16 MotionStateNext; //锟斤拷1状态
+	u16 SmallState; //锟斤拷始状态为0,锟斤拷锟阶刺?为128
+	u16 StatusWord; //状态锟斤拷
+	u16 FuncInnerState;// 锟斤拷锟斤拷锟节诧拷锟斤拷状态锟斤拷锟斤拷锟节碉拷锟斤拷
+	u16 ErrCode;	//锟斤拷锟斤拷锟斤拷
+	u16 CmdRepState; // 锟斤拷锟斤拷锟斤拷锟接ψ刺? 锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应锟斤拷锟斤拷 锟斤拷锟?0锟斤拷NoErr锟斤拷 锟斤拷锟斤拷锟斤拷锟斤拷锟接︼拷锟斤拷锟斤拷锟斤拷应锟侥达拷锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷锟斤拷应锟斤拷原锟斤拷
+	u16 StartNodeFlag; //7锟斤拷锟脚凤拷锟斤拷每锟斤拷占1bit锟斤拷锟街憋拷为bit1...bit7
 	
 	u16 Rev2[3];
 /*	
@@ -115,16 +115,16 @@ typedef __packed struct{
 */
 	u16 AutoCycleState;
 //	
-	u16 DebugSlaveId; //调试的驱动器从站地址
-	u16 DebugMaxIqSet; //调试最大电流设定
-	s16 DebugSpdSet; //调试速度设定
-	s16 DebugPosSet; //调试的位置设定	
+	u16 DebugSlaveId; //锟斤拷锟皆碉拷锟斤拷锟斤拷锟斤拷锟斤拷站锟斤拷址
+	u16 DebugMaxIqSet; //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟借定
+	s16 DebugSpdSet; //锟斤拷锟斤拷锟劫讹拷锟借定
+	s16 DebugPosSet; //锟斤拷锟皆碉拷位锟斤拷锟借定	
 	u16 M1orM3OpenState;// bit0 for m1m2, bit1 for m3m4
 	
 	u16 Rev3[2];
 /*
 	u16 PosOpenLen2;
-  s16 CompCoff; //速度补偿系数
+  s16 CompCoff; //锟劫度诧拷锟斤拷系锟斤拷
 */
 //
 	s32 Pos6Pos5Err;
@@ -151,7 +151,7 @@ typedef __packed struct{
 /* Exported constants --------------------------------------------------------*/
 #define SLAVE_ADDR 0
 
-#define Judge_SAVE_PAR_ADDR 198 //用这个地址判断是否首次加载程序
+#define Judge_SAVE_PAR_ADDR 198 //锟斤拷锟斤拷锟斤拷锟街凤拷卸锟斤拷欠锟斤拷状渭锟斤拷爻锟斤拷锟?
 #define SAVE_PAR_ADDR 299
 #define DEBUG_EN_ADDR SAVE_PAR_ADDR
 #define CMD_CODE_ADDR 209 
@@ -172,7 +172,7 @@ typedef __packed struct{
 
 
 
-#define SERV0_BASE 250 //这个伺服不存在，用于广播保留的缓存区
+#define SERV0_BASE 250 //锟斤拷锟斤拷欧锟斤拷锟斤拷锟斤拷冢锟斤拷锟斤拷诠悴ワ拷锟斤拷锟斤拷幕锟斤拷锟斤拷锟?
 #define SERV1_BASE 300
 #define SERV2_BASE 350
 #define SERV3_BASE 400
@@ -184,6 +184,8 @@ typedef __packed struct{
 #define CFG_MOTION_PAR_BASE 100
 #define MOTION_STATE_BASE 200
 #define STEPS_CNT_BASE 120
+
+#define MONITOR_BASE 260
 
 /*
 #define DI_BASE 90
@@ -232,7 +234,7 @@ typedef __packed struct{
 #define DEBUG_PosSet_BASE 108
 #define REG_DEBUG_PosSet Para[DEBUG_PosSet_BASE]
 
-#define DEBUG_Pos_Xxx_BASE 109   //倍率。 实际位置 = REG_DEBUG_PosSet*REG_DEBUG_Pos_Xxx, 通常REG_DEBUG_Pos_Xxx为100 或1000
+#define DEBUG_Pos_Xxx_BASE 109   //锟斤拷锟绞★拷 实锟斤拷位锟斤拷 = REG_DEBUG_PosSet*REG_DEBUG_Pos_Xxx, 通锟斤拷REG_DEBUG_Pos_Xxx为100 锟斤拷1000
 #define REG_DEBUG_Pos_Xxx Para[DEBUG_Pos_Xxx_BASE]
 
 #define DEBUG_POS_LEN_BASE 110
@@ -244,12 +246,12 @@ typedef __packed struct{
 
 /* Exported macro ------------------------------------------------------------*/
 //for ctrlword or statusword
-#define  BIT_ROBOT_EN Bit[0] //使能位
-#define  BIT_INIT_OK  Bit[1] //初始化完成
-#define  BIT_DIR Bit[3]  //  方向位 //仅对statusword 有效
+#define  BIT_ROBOT_EN Bit[0] //使锟斤拷位
+#define  BIT_INIT_OK  Bit[1] //锟斤拷始锟斤拷锟斤拷锟?
+#define  BIT_DIR Bit[3]  //  锟斤拷锟斤拷位 //锟斤拷锟斤拷statusword 锟斤拷效
 
-#define  BIT_SOFT_STOP Bit[8] //停止位 和步骤暂停不一样
-#define  BIT_IM_PAUSE Bit[9] // 立即暂停在当前状态的标志，用于调试
+#define  BIT_SOFT_STOP Bit[8] //停止位 锟酵诧拷锟斤拷锟斤拷停锟斤拷一锟斤拷
+#define  BIT_IM_PAUSE Bit[9] // 锟斤拷锟斤拷锟斤拷停锟节碉拷前状态锟侥憋拷志锟斤拷锟斤拷锟节碉拷锟斤拷
 
 // for statusword
 #define  BIT_REMOTE_START  Bit[9] //
@@ -259,7 +261,7 @@ typedef __packed struct{
 // for smallState
 #define BIT_STEP_FINISH  Bit[15] 
 
-#define POS_ERR_MAX 10000
+#define POS_ERR_MAX 10000*3
 //errcode
 #define START_FAIL  Bit[9] 
 #define SERVO_ERR Bit[8]
@@ -272,7 +274,7 @@ typedef __packed struct{
 	 
 #define HOLDING_REG_END 4096//1024
 	 
-
+void StateMonitor(void);
 
 extern u16 DebugFlag;
 extern u16 SlaveIdAddr;
