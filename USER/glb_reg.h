@@ -1,0 +1,291 @@
+
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __GLB_REG_H
+#define __GLB_REG_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif 
+
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx.h"
+#include "os_cpu.h"
+
+
+/* Exported types ------------------------------------------------------------*/
+	 
+ #ifndef Para
+#define Para dGlbReg
+#endif
+	 
+typedef __packed struct{
+	  u16 SlaveID;
+	  u16 CtrlMode;
+		u16 ServSTA;
+	  u16 ServErr;
+	  u16 CtrlWord;
+	  s16 StatusWord;	
+	  s32 PosSV;//set
+	  s32 PosPV;//feedback
+	  s32 PosLocked; //对应抱紧电机m1/m2/m3/4,该位置表示为电机抱紧缆索对应的位置。对于 升降m4/m5/6 , 为两个平面最靠近的位置。此参数认为是参考点
+	  s32 PosLimit; // 另外一个方向的限位位置。	
+		s32 SpdSV;
+	  s32 SpdPV;
+	  s16 MaxCurrenLimit; //TrqSV
+	  s16 TrqPV;		
+	  s16 MaxcurrentLocked;
+		u16 RdUpdate; //1:表示读完成，内容为最新。如果觉得要读,那么会把该为清0 .bit0:posSV, bit1:TrqPV, bit2:spdPV
+		u16 init_ok;
+		s32 PosPV_Last;
+}SERV_PAR_TYPE;
+
+typedef __packed struct{
+	u16 PosFactor; //调试位置因子设定，实际位置 = posset*DebugPosFactor;
+	s16 PosOpenLen; //抱闸松开的位置增量 ,actual = PosOpenLen * PosFactor;
+	u16 ClimbLenSameFlag; //0:不一样，1：一样
+	u16 PosClimbLen; //电推杆1升降的长度位置	
+	u16 PosClimbLen2;//电推杆2的长度
+	u16 PosClimbLen3;//电推杆3的长度
+	u16 HomingSpd; //回零速度
+	u16 CloseSpd; //电机抱紧的速度
+	u16 ClimbSpd; // 爬升速度。
+	s16 Iq1Limit; //抱紧电机电流限制
+	s16 DeltaPos;//回零的位置增量	
+	
+	u16 HomingSpdM5M6M7;
+	s16 DeltaPosM5M6M7;
+	u16 Iq2Limit;
+	
+	u16 PosOpenLen2;
+  s16 CompCoff; //速度补偿系数		
+	
+	u32 acc1;
+	u32 acc2;	
+	u32 RunSteps; //已运行的步数
+	u16 DirAutoChg;//方向自动修改配置
+	u16 Rev1[7];
+	u16 pwr_en;
+	
+	
+} CFG_MOTION_PAR_TYPE;
+
+typedef __packed struct{
+	u16 MotionMode;  //0：自动模式或 1：单步模式	
+	u16 AutoCycleNum;//
+	u16 AutocycleLeft;//
+	u16 StepsPreSet; //预置多少步	
+	u16 StepsLeft;//剩余多少步	
+	u16 MotionDir; // 移动到方向	
+//
+	u16 MotionCtrlWord; // 设计为持续有效的命令，非1次性的
+	u16 AutoCycleEn; //	
+	u16 MotionPause; //连贯动作可以暂停，通过该位实现
+	u16 MotionCmdCode; //计划为1次性的命令
+//	
+	u16 SysState; 	//系统状态
+	u16 MotionState;	//运动大状态机状态
+//
+	u16 Rev1[8];
+/*	
+	u16 PosFactor; //调试位置因子设定，实际位置 = posset*DebugPosFactor;
+	s16 PosOpenLen; //抱闸松开的位置增量 ,actual = PosOpenLen * PosFactor;
+	u16 PosClimbLen; //升降的长度位置		
+	u16 HomingSpd; //回零速度
+	u16 CloseSpd; //电机抱紧的速度
+	u16 ClimbSpd; // 爬升速度。
+	s16 Iq1Limit; //抱紧电机电流限制
+	s16 DeltaPos;//回零的位置增量	
+*/
+
+//
+	u16 MotionStateLast; //上1状态
+	u16 MotionStateNext; //下1状态
+	u16 SmallState; //初始状态为0,完成状态为128
+	u16 StatusWord; //状态字
+	u16 FuncInnerState;// 函数内部的状态，用于调试
+	u16 ErrCode;	//错误字
+	u16 CmdRepState; // 命令的响应状态 ，上一个命令能正常响应，则 输出0，NoErr， 如果不能响应，输出对应的错误吗？说明不能响应的原因。
+	u16 StartNodeFlag; //7个伺服，每个占1bit，分别为bit1...bit7
+	
+	u16 Rev2[3];
+/*	
+	u16 HomingSpdM5M6M7;
+	s16 DeltaPosM5M6M7;
+	u16 Iq2Limit;
+*/
+	u16 AutoCycleState;
+//	
+	u16 DebugSlaveId; //调试的驱动器从站地址
+	u16 DebugMaxIqSet; //调试最大电流设定
+	s16 DebugSpdSet; //调试速度设定
+	s16 DebugPosSet; //调试的位置设定	
+	u16 M1orM3OpenState;// bit0 for m1m2, bit1 for m3m4
+	
+	u16 Rev3[2];
+/*
+	u16 PosOpenLen2;
+  s16 CompCoff; //速度补偿系数
+*/
+//
+	s32 Pos6Pos5Err;
+	s32 Pos7Pos5Err;
+	
+	u16 Di;
+	u16 Do;	
+	s16 Ai1;
+	s16 Ai2;
+	u16 StateOfCharge;
+	u16 BatVolt;
+	u16 BatCurrent;
+	u16 BatTemp;//
+
+//	u16 Rev4[4];	
+/*	
+	u32 acc1;
+	u32 acc2;
+*/	
+
+} MOTION_VAR_TYPE;
+
+#define SMALLSTATEFINISH 0x80 //128
+/* Exported constants --------------------------------------------------------*/
+#define SLAVE_ADDR 0
+
+#define Judge_SAVE_PAR_ADDR 198 //用这个地址判断是否首次加载程序
+#define SAVE_PAR_ADDR 299
+#define DEBUG_EN_ADDR SAVE_PAR_ADDR
+#define CMD_CODE_ADDR 209 
+
+#define SAVE_PAR_CMD 2049
+#define SAVE_PAR_NUM 200//299
+
+#define DEBUG_EN_CMD 2050
+#define DEBUG_DIS_CMD 2051
+
+
+
+
+
+#define  RdPOS_UD_BIT 0x0001
+#define  RdTRQ_UD_BIT 0x0002
+#define  RdSPD_UD_BIT 0x0004
+
+
+
+#define SERV0_BASE 250 //这个伺服不存在，用于广播保留的缓存区
+#define SERV1_BASE 300
+#define SERV2_BASE 350
+#define SERV3_BASE 400
+#define SERV4_BASE 450
+#define SERV5_BASE 500
+#define SERV6_BASE 550
+#define SERV7_BASE 600
+
+#define CFG_MOTION_PAR_BASE 100
+#define MOTION_STATE_BASE 200
+#define STEPS_CNT_BASE 120
+
+/*
+#define DI_BASE 90
+#define DO_BASE 91
+#define AI0_BASE 93
+#define AI1_BASE 94
+
+#define REG_DI Para[DI_BASE]
+#define REG_DO Para[DO_BASE]
+#define REG_AI0 Para[AI0_BASE]
+#define REG_AI1 Para[AI1_BASE]
+*/
+
+//#define PWR_EN_BASE 92
+
+//#define ptrCfgMotionPar->pwr_en Para[PWR_EN_BASE]
+//#define ptrCfgMotionPar->RunSteps (*((u32 *)(&Para[STEPS_CNT_BASE])))
+
+
+
+/*
+#define ROBOT_EN_BASE 100 //
+#define REG_ROBOT_EN Para[ROBOT_EN_BASE]
+
+#define ROBOT_MODE_BASE 101 //
+#define REG_ROBOT_MODE Para[ROBOT_MODE_BASE]
+
+#define ROBOT_CMD_BASE 102 //
+#define REG_ROBOT_CMD Para[ROBOT_CMD_BASE]
+
+#define ROBOT_STA_BASE 103 //
+#define REG_ROBOT_STA Para[ROBOT_STA_BASE]
+
+#define ROBOT_SMALLSTA_BASE 104 //
+#define REG_ROBOT_SMALLSTA Para[ROBOT_SMALLSTA_BASE]
+
+#define DEBUG_ID_BASE 105
+#define REG_DEBUG_ID Para[DEBUG_ID_BASE] 
+
+#define DEBUG_MaxIq_BASE 106
+#define REG_MaxIq Para[DEBUG_MaxIq_BASE] 
+
+#define DEBUG_Spd_BASE 107
+#define REG_DEBUG_Spd Para[DEBUG_Spd_BASE]
+
+#define DEBUG_PosSet_BASE 108
+#define REG_DEBUG_PosSet Para[DEBUG_PosSet_BASE]
+
+#define DEBUG_Pos_Xxx_BASE 109   //倍率。 实际位置 = REG_DEBUG_PosSet*REG_DEBUG_Pos_Xxx, 通常REG_DEBUG_Pos_Xxx为100 或1000
+#define REG_DEBUG_Pos_Xxx Para[DEBUG_Pos_Xxx_BASE]
+
+#define DEBUG_POS_LEN_BASE 110
+#define REG_DEBUG_POS_LEN Para[DEBUG_POS_LEN_BASE]
+
+#define DEBUG_POS_LEN2_BASE 111
+#define REG_DEBUG_POS_LEN2 Para[DEBUG_POS_LEN2_BASE]
+*/
+
+/* Exported macro ------------------------------------------------------------*/
+//for ctrlword or statusword
+#define  BIT_ROBOT_EN Bit[0] //使能位
+#define  BIT_INIT_OK  Bit[1] //初始化完成
+#define  BIT_DIR Bit[3]  //  方向位 //仅对statusword 有效
+
+#define  BIT_SOFT_STOP Bit[8] //停止位 和步骤暂停不一样
+#define  BIT_IM_PAUSE Bit[9] // 立即暂停在当前状态的标志，用于调试
+
+// for statusword
+#define  BIT_REMOTE_START  Bit[9] //
+
+#define BIT_HOMING_FINISH Bit[13]
+#define BIT_HOMING_BUSY Bit[14]
+// for smallState
+#define BIT_STEP_FINISH  Bit[15] 
+
+#define POS_ERR_MAX 10000
+//errcode
+#define START_FAIL  Bit[9] 
+#define SERVO_ERR Bit[8]
+#define AXIS_SYN_ERR Bit[10]
+
+/* Exported functions ------------------------------------------------------- */
+
+
+//void SysTick_Handler(void);
+	 
+#define HOLDING_REG_END 4096//1024
+	 
+
+
+extern u16 DebugFlag;
+extern u16 SlaveIdAddr;
+extern const u16  Bit[];	 	 
+extern volatile u16 dGlbReg [];
+extern SERV_PAR_TYPE * const ptrServ[8];
+extern MOTION_VAR_TYPE * const ptrMotionBlk;
+extern CFG_MOTION_PAR_TYPE * const ptrCfgMotionPar;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ____GLB_REG_H */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
