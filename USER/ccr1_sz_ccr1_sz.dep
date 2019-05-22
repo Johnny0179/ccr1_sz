@@ -130,7 +130,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x5710F460)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x5710F460)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x5710F460)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x5710F460)
-F (.\glb_reg.c)(0x5CE7B59E)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\FWLIB\inc -I..\UCOSII\CONFIG -I..\UCOSII\CORE -I..\UCOSII\PORT -I..\HARDWARE\BEEP -I..\HARDWARE\KEY -I..\RS485 -I..\ServoCom -I..\ServoCan -I..\HARDWARE\ADC -I..\HARDWARE\IIC-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\glb_reg.o --omf_browse ..\obj\glb_reg.crf --depend ..\obj\glb_reg.d)
+F (.\glb_reg.c)(0x5CE7BE8E)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\FWLIB\inc -I..\UCOSII\CONFIG -I..\UCOSII\CORE -I..\UCOSII\PORT -I..\HARDWARE\BEEP -I..\HARDWARE\KEY -I..\RS485 -I..\ServoCom -I..\ServoCan -I..\HARDWARE\ADC -I..\HARDWARE\IIC-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\glb_reg.o --omf_browse ..\obj\glb_reg.crf --depend ..\obj\glb_reg.d)
 I (glb_reg.h)(0x5CE75FB2)
 I (stm32f4xx.h)(0x5710F466)
 I (..\CORE\core_cm4.h)(0x5710F460)

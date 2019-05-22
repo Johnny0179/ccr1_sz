@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\ccr1_sz.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\ccr1_sz.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Fri May 24 17:15:15 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Fri May 24 17:52:37 2019
 <BR><P>
 <H3>Maximum Stack Usage =        160 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -411,8 +411,10 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[1b0]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, system_stm32f4xx.o(.text), UNUSED)
 
-<P><STRONG><a name="[83]"></a>StateMonitor</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, glb_reg.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ServoCom_task
+<P><STRONG><a name="[83]"></a>StateMonitor</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, glb_reg.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = StateMonitor
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ServoCom_task
 </UL>
 
 <P><STRONG><a name="[9c]"></a>LED_Init</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, led.o(.text), UNUSED)

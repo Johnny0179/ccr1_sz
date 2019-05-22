@@ -45,9 +45,9 @@ void StateMonitor(void)
 
 		// PosPV
 		// high 16bit
-		Para[MONITOR_BASE + 7 + 2 * i] = (u16)((ptrServ[i + 1]->SpdPV >> 16) & 0xFFFF);
+		Para[MONITOR_BASE + 7 + 2 * i] = (u16)((ptrServ[i + 1]->PosPV >> 16) & 0xFFFF);
 		// low 16bit
-		Para[MONITOR_BASE + 7 + 2 * i + 1] = (u16)((ptrServ[i + 1]->SpdPV) & 0xFFFF);
+		Para[MONITOR_BASE + 7 + 2 * i + 1] = (u16)(((ptrServ[i + 1]->PosPV)/1024/*  & 0xFFFF */));
 
 		//   TrqPV;
 		Para[MONITOR_BASE + 21 + i] = ptrServ[i + 1]->TrqPV;
