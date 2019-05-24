@@ -1,5 +1,5 @@
 ..\obj\servocan.o: ..\ServoCan\ServoCan.c
-..\obj\servocan.o: ..\SYSTEM\sys\sys.h
+..\obj\servocan.o: ..\ServoCan\ServoCan.h
 ..\obj\servocan.o: ..\USER\stm32f4xx.h
 ..\obj\servocan.o: ..\CORE\core_cm4.h
 ..\obj\servocan.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
@@ -35,10 +35,8 @@
 ..\obj\servocan.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\servocan.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\servocan.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\servocan.o: ..\SYSTEM\delay\delay.h
-..\obj\servocan.o: ..\SYSTEM\usart\usart.h
-..\obj\servocan.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
 ..\obj\servocan.o: ..\UCOSII\CONFIG\includes.h
+..\obj\servocan.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
 ..\obj\servocan.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
 ..\obj\servocan.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\ctype.h
 ..\obj\servocan.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
@@ -47,5 +45,7 @@
 ..\obj\servocan.o: ..\UCOSII\CONFIG\includes.h
 ..\obj\servocan.o: ..\UCOSII\CONFIG\os_cfg.h
 ..\obj\servocan.o: ..\UCOSII\PORT\os_cpu.h
+..\obj\servocan.o: ..\SYSTEM\delay\delay.h
+..\obj\servocan.o: ..\SYSTEM\sys\sys.h
 ..\obj\servocan.o: ..\USER\glb_reg.h
-..\obj\servocan.o: ..\ServoCan\ServoCan.h
+..\obj\servocan.o: ..\SYSTEM\usart\usart.h

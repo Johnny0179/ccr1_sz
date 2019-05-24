@@ -44,11 +44,11 @@ void StateMonitor(void) {
     // M5~M7
     if (i == 5 - 1 | i == 6 - 1 | i == 7 - 1) {
       Para[MONITOR_BASE + 7 + 2 * i + 1] =
-          (u16)(((ptrServ[i + 1]->PosPV) / 1024 / REDUCTION_RATIO2));
+          (u16)(((ptrServ[i + 1]->PosPV) / 1024));
     } else {
       // M1 M2 M3 M4
       Para[MONITOR_BASE + 7 + 2 * i + 1] =
-          (u16)(((ptrServ[i + 1]->PosPV) / 1024 / REDUCTION_RATIO1));
+          (u16)(((ptrServ[i + 1]->PosPV) / 1024 ));
     }
 
     //   TrqPV mNm;

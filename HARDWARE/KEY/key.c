@@ -1,79 +1,60 @@
 #include "key.h"
-#include "delay.h" 
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32F407¿ª·¢°å
-//°´¼üÊäÈëÇý¶¯´úÂë	   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2014/5/3
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
-//All rights reserved									  
-////////////////////////////////////////////////////////////////////////////////// 	 
+#include "delay.h"
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½Í¾
+// ALIENTEK STM32F407ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½@ALIENTEK
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³:www.openedv.com
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2014/5/3
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿?
+// Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾
+// 2014-2024 All rights reserved
+//////////////////////////////////////////////////////////////////////////////////
 
-//°´¼ü³õÊ¼»¯º¯Êý
-void KEY_Init(void)
-{
-	
-	GPIO_InitTypeDef  GPIO_InitStructure;
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void KEY_Init(void) {
+  GPIO_InitTypeDef GPIO_InitStructure;
 
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOE, ENABLE);//Ê¹ÄÜGPIOA,GPIOEÊ±ÖÓ
- 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4; //KEY0 KEY1 KEY2¶ÔÓ¦Òý½Å
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//ÆÕÍ¨ÊäÈëÄ£Ê½
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100M
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOE, &GPIO_InitStructure);//³õÊ¼»¯GPIOE2,3,4
-	
-	 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//WK_UP¶ÔÓ¦Òý½ÅPA0
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN ;//ÏÂÀ­
-  GPIO_Init(GPIOA, &GPIO_InitStructure);//³õÊ¼»¯GPIOA0
- 
-} 
-//°´¼ü´¦Àíº¯Êý
-//·µ»Ø°´¼üÖµ
-//mode:0,²»Ö§³ÖÁ¬Ðø°´;1,Ö§³ÖÁ¬Ðø°´;
-//0£¬Ã»ÓÐÈÎºÎ°´¼ü°´ÏÂ
-//1£¬KEY0°´ÏÂ
-//2£¬KEY1°´ÏÂ
-//3£¬KEY2°´ÏÂ 
-//4£¬WKUP°´ÏÂ WK_UP
-//×¢Òâ´Ëº¯ÊýÓÐÏìÓ¦ÓÅÏÈ¼¶,KEY0>KEY1>KEY2>WK_UP!!
-u8 KEY_Scan(u8 mode)
-{	 
-	static u8 key_up=1;//°´¼ü°´ËÉ¿ª±êÖ¾
-	if(mode)key_up=1;  //Ö§³ÖÁ¬°´		  
-	if(key_up&&(KEY0==0||KEY1==0||KEY2==0||WK_UP==1))
-	{
-		delay_ms(10);//È¥¶¶¶¯ 
-		key_up=0;
-		if(KEY0==0)return 1;
-		else if(KEY1==0)return 2;
-		else if(KEY2==0)return 3;
-		else if(WK_UP==1)return 4;
-	}else if(KEY0==1&&KEY1==1&&KEY2==1&&WK_UP==0)key_up=1; 	    
- 	return 0;// ÎÞ°´¼ü°´ÏÂ
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOE,
+                         ENABLE);  //Ê¹ï¿½ï¿½GPIOA,GPIOEÊ±ï¿½ï¿½
+
+  GPIO_InitStructure.GPIO_Pin =
+      GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4;  // KEY0 KEY1 KEY2ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;        //ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;  // 100M
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;        //ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOE, &GPIO_InitStructure);              //ï¿½ï¿½Ê¼ï¿½ï¿½GPIOE2,3,4
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;  // WK_UPï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½PA0
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;  //ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOA, &GPIO_InitStructure);          //ï¿½ï¿½Ê¼ï¿½ï¿½GPIOA0
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½Ø°ï¿½ï¿½ï¿½Öµ
+// mode:0,ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;1,Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+// 0ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ÎºÎ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// 1ï¿½ï¿½KEY0ï¿½ï¿½ï¿½ï¿½
+// 2ï¿½ï¿½KEY1ï¿½ï¿½ï¿½ï¿½
+// 3ï¿½ï¿½KEY2ï¿½ï¿½ï¿½ï¿½
+// 4ï¿½ï¿½WKUPï¿½ï¿½ï¿½ï¿½ WK_UP
+//×¢ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½È¼ï¿?,KEY0>KEY1>KEY2>WK_UP!!
+u8 KEY_Scan(u8 mode) {
+  static u8 key_up = 1;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½Ö¾
+  if (mode) key_up = 1;  //Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  if (key_up && (KEY0 == 0 || KEY1 == 0 || KEY2 == 0 || WK_UP == 1)) {
+    delay_ms(10);  //È¥ï¿½ï¿½ï¿½ï¿½
+    key_up = 0;
+    if (KEY0 == 0)
+      return 1;
+    else if (KEY1 == 0)
+      return 2;
+    else if (KEY2 == 0)
+      return 3;
+    else if (WK_UP == 1)
+      return 4;
+  } else if (KEY0 == 1 && KEY1 == 1 && KEY2 == 1 && WK_UP == 0)
+    key_up = 1;
+  return 0;  // ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+}

@@ -1,41 +1,39 @@
 #ifndef __KEY_H
-#define __KEY_H	 
-#include "sys.h" 
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32F407¿ª·¢°å
-//°´¼üÊäÈëÇý¶¯´úÂë	   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2014/5/3
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
-//All rights reserved									  
-////////////////////////////////////////////////////////////////////////////////// 	 
+#define __KEY_H
+#include "sys.h"
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½Í¾
+// ALIENTEK STM32F407ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½@ALIENTEK
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³:www.openedv.com
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2014/5/3
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿?
+// Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾
+// 2014-2024 All rights reserved
+//////////////////////////////////////////////////////////////////////////////////
 
-/*ÏÂÃæµÄ·½Ê½ÊÇÍ¨¹ýÖ±½Ó²Ù×÷¿âº¯Êý·½Ê½¶ÁÈ¡IO*/
-#define KEY0 		GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_4) //PE4
-#define KEY1 		GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_3)	//PE3 
-#define KEY2 		GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_2) //PE2
-#define WK_UP 	GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)	//PA0
+/*ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Ê½ï¿½ï¿½Í?ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½ï¿½âº¯ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½È¡IO*/
+#define KEY0 GPIO_ReadInputDataBit(GPIOE, GPIO_Pin_4)   // PE4
+#define KEY1 GPIO_ReadInputDataBit(GPIOE, GPIO_Pin_3)   // PE3
+#define KEY2 GPIO_ReadInputDataBit(GPIOE, GPIO_Pin_2)   // PE2
+#define WK_UP GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0)  // PA0
 
-
-/*ÏÂÃæ·½Ê½ÊÇÍ¨¹ýÎ»´ø²Ù×÷·½Ê½¶ÁÈ¡IO*/
+/*ï¿½ï¿½ï¿½æ·½Ê½ï¿½ï¿½Í¨ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½È¡IO*/
 /*
 #define KEY0 		PEin(4)   	//PE4
-#define KEY1 		PEin(3)		//PE3 
+#define KEY1 		PEin(3)		//PE3
 #define KEY2 		PEin(2)		//P32
 #define WK_UP 	PAin(0)		//PA0
 */
 
+#define KEY0_PRES 1
+#define KEY1_PRES 2
+#define KEY2_PRES 3
+#define WKUP_PRES 4
 
-#define KEY0_PRES 	1
-#define KEY1_PRES	2
-#define KEY2_PRES	3
-#define WKUP_PRES   4
-
-void KEY_Init(void);	//IO³õÊ¼»¯
-u8 KEY_Scan(u8);  		//°´¼üÉ¨Ãèº¯Êý	
+void KEY_Init(void);  // IOï¿½ï¿½Ê¼ï¿½ï¿½
+u8 KEY_Scan(u8);      //ï¿½ï¿½ï¿½ï¿½É¨ï¿½èº¯ï¿½ï¿½
 
 #endif

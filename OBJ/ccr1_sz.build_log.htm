@@ -9,7 +9,7 @@ Project File Date:  05/23/2019
 <h2>Output:</h2>
 Build target 'ccr1_sz'
 linking...
-Program Size: Code=49752 RO-data=1264 RW-data=188 ZI-data=19900  
+Program Size: Code=51320 RO-data=1264 RW-data=188 ZI-data=19900  
 FromELF: creating hex file...
 "..\OBJ\ccr1_sz.axf" - 0 Error(s), 0 Warning(s).
 Load "..\\OBJ\\ccr1_sz.axf" 
@@ -46,7 +46,20 @@ JTAG speed: 2000 kHz
 Erase Done.
 Programming Done.
 Verify OK.
-13 2014 20:50:02
+ unreachable
+        break;
+..\ServoCan\Motion.c: 7 warnings, 0 errors
+linking...
+Program Size: Code=51360 RO-data=1264 RW-data=188 ZI-data=19900  
+FromELF: creating hex file...
+"..\OBJ\ccr1_sz.axf" - 0 Error(s), 9 Warning(s).
+Load "..\\OBJ\\ccr1_sz.axf" 
+Set JLink Project File to "E:\win_share\ccr1_sz\USER\JLinkSettings.ini"
+* JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.80g, compiled Feb 13 2014 20:50:02
 Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
 Hardware: V7.00
 S/N : 20090928 
@@ -74,7 +87,34 @@ JTAG speed: 2000 kHz
 Erase Done.
 Programming Done.
 Verify OK.
-Link Info: Found SWD-DP with ID 0x2BA01477
+Load "..\\OBJ\\ccr1_sz.axf" 
+Set JLink Project File to "E:\win_share\ccr1_sz\USER\JLinkSettings.ini"
+* JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.80g, compiled Feb 13 2014 20:50:02
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: STM32F2xxx/STM32F4xxx: Can not attach to CPU. Trying connect under reset.
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "..\\OBJ\\ccr1_sz.axf" 
+Set JLink Project File to "E:\win_share\ccr1_sz\USER\JLinkSettings.ini"
+* JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.80g, compiled Feb 13 2014 20:50:02
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: Found SWD-DP with ID 0x2BA01477
 * JLink Info: Found Cortex-M4 r0p1, Little endian.
 * JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
 * JLink Info: TPIU fitted.

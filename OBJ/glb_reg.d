@@ -1,5 +1,6 @@
 ..\obj\glb_reg.o: glb_reg.c
 ..\obj\glb_reg.o: glb_reg.h
+..\obj\glb_reg.o: ..\UCOSII\PORT\os_cpu.h
 ..\obj\glb_reg.o: stm32f4xx.h
 ..\obj\glb_reg.o: ..\CORE\core_cm4.h
 ..\obj\glb_reg.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
@@ -35,4 +36,13 @@
 ..\obj\glb_reg.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\glb_reg.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\glb_reg.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\glb_reg.o: ..\UCOSII\PORT\os_cpu.h
+..\obj\glb_reg.o: ..\ServoCan\Motion.h
+..\obj\glb_reg.o: ..\UCOSII\CONFIG\includes.h
+..\obj\glb_reg.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\glb_reg.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+..\obj\glb_reg.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\ctype.h
+..\obj\glb_reg.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+..\obj\glb_reg.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
+..\obj\glb_reg.o: ..\UCOSII\CORE\ucos_ii.h
+..\obj\glb_reg.o: ..\UCOSII\CONFIG\includes.h
+..\obj\glb_reg.o: ..\UCOSII\CONFIG\os_cfg.h
