@@ -59,7 +59,7 @@ void MotionInit(void) {
   ptrCfgMotionPar->CloseSpd = 5000;
   ptrCfgMotionPar->ClimbSpd = RATED_SPD2 / 2;
   ptrCfgMotionPar->Iq1Limit = RATED_IQ1 * 7 / 8;  //��ʱ�޸�Ϊ1/2;
-  ptrCfgMotionPar->DeltaPos = 20;                 //�����?
+  ptrCfgMotionPar->DeltaPos = 20;                 //�����?
   ptrCfgMotionPar->DeltaPosM5M6M7 = 2000;
   ptrCfgMotionPar->Iq2Limit = RATED_IQ2;
   ptrMotionBlk->StepsLeft = 0;     // N��һͣ
@@ -81,11 +81,11 @@ void MotionInit(void) {
     if (i <= 4) {
       ptrServ[i]->MaxcurrentLocked =
           (s32)(ptrCfgMotionPar->Iq1Limit) * 1000 / RATED_IQ1 -
-          50;  //�����λ���?�صİٷֱ�
+          50;  //�����λ���?�صİٷֱ�
     } else {
       ptrServ[i]->MaxcurrentLocked =
           (s32)(ptrCfgMotionPar->Iq2Limit) * 1000 / RATED_IQ2 -
-          20;  // 0.85 //�����λ���?�صİٷֱ�
+          20;  // 0.85 //�����λ���?�صİٷֱ�
     }
     ptrServ[i]->SlaveID = i;
     ptrServ[i]->PosLocked = 0;
@@ -123,7 +123,7 @@ void VarClear(void) {
   ptrMotionBlk->DebugPosSet = 500;
 
   ptrCfgMotionPar->PosFactor = 100;
-  ptrCfgMotionPar->DeltaPos = 20;  //�����?
+  ptrCfgMotionPar->DeltaPos = 20;  //�����?
   ptrCfgMotionPar->DeltaPosM5M6M7 = 2000;
 
   ptrMotionBlk->AutoCycleNum = 1;  //
@@ -145,11 +145,11 @@ void VarClear(void) {
     if (i <= 4) {
       ptrServ[i]->MaxcurrentLocked =
           (s32)(ptrCfgMotionPar->Iq1Limit) * 1000 / RATED_IQ1 -
-          50;  //�����λ���?�صİٷֱ�
+          50;  //�����λ���?�صİٷֱ�
     } else {
       ptrServ[i]->MaxcurrentLocked =
           (s32)(ptrCfgMotionPar->Iq2Limit) * 1000 / RATED_IQ2 -
-          20;  // 0.85 //�����λ���?�صİٷֱ�
+          20;  // 0.85 //�����λ���?�صİٷֱ�
     }
     ptrServ[i]->SlaveID = i;
     ptrServ[i]->PosLocked = 0;
@@ -304,7 +304,7 @@ void HandleCmd(void) {
         break;
       case 2:                                         //ֹͣ����
         if (ptrMotionBlk->SysState == SYS_WORKING) {  //���Ƕ�ʹ�ܵ����֣�
-          ptrMotionBlk->StatusWord |= BIT_SOFT_STOP;  //���ֱ�ס�����������?
+          ptrMotionBlk->StatusWord |= BIT_SOFT_STOP;  //���ֱ�ס�����������?
           ptrMotionBlk->MotionCmdCode = 0;  //������ִ�У�����0
         } else {
           ptrMotionBlk->MotionCmdCode = 0;  //������ִ�У�����0
@@ -313,7 +313,7 @@ void HandleCmd(void) {
 
       case 3:  //������ͣ�������ڵ���
         if (ptrMotionBlk->SysState == SYS_WORKING) {  //���Ƕ�ʹ�ܵ����֣�
-          ptrMotionBlk->StatusWord |= BIT_IM_PAUSE;  //���ֱ�ס�����������?
+          ptrMotionBlk->StatusWord |= BIT_IM_PAUSE;  //���ֱ�ס�����������?
           ptrMotionBlk->MotionCmdCode = 0;  //������ִ�У�����0
         }
         break;
@@ -694,7 +694,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -709,7 +709,7 @@ void MotionCtrl(void) {
           if (ptrMotionBlk->MotionMode == 1)  // �ֶ�ģʽ
           {                                   //��ͣģʽ
             ptrMotionBlk->MotionState = S_MOTION_PAUSE;
-            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
+            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
           } else {  //�Զ�������һ״̬
             ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateNext;
             ptrMotionBlk->SmallState = 0;
@@ -735,7 +735,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -761,7 +761,7 @@ void MotionCtrl(void) {
           } else {
             ptrMotionBlk->MotionStateLast = ptrMotionBlk->MotionState;
 
-            /*if(ptrMotionBlk->MotionDir == 1)  //������ض�λ�ø���һ�·���״�?λ
+            /*if(ptrMotionBlk->MotionDir == 1)  //������ض�λ�ø���һ�·���״�?λ
                     {
                             ptrMotionBlk->StatusWord |= BIT_DIR;
                     }
@@ -776,7 +776,7 @@ void MotionCtrl(void) {
             if (ptrMotionBlk->MotionMode == 1)  // �ֶ�ģʽ
             {                                   //��ͣģʽ
               ptrMotionBlk->MotionState = S_MOTION_PAUSE;
-              // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
+              // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
             } else {  //�Զ�������һ״̬
               ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateNext;
               ptrMotionBlk->SmallState = 0;
@@ -803,7 +803,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -818,7 +818,7 @@ void MotionCtrl(void) {
           if (ptrMotionBlk->MotionMode == 1)  // �ֶ�ģʽ
           {                                   //��ͣģʽ
             ptrMotionBlk->MotionState = S_MOTION_PAUSE;
-            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
+            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
           } else {  //�Զ�������һ״̬
             ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateNext;
             ptrMotionBlk->SmallState = 0;
@@ -844,7 +844,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -870,7 +870,7 @@ void MotionCtrl(void) {
           } else {
             ptrMotionBlk->MotionStateLast = ptrMotionBlk->MotionState;
 
-            /*if(ptrMotionBlk->MotionDir == 1)  //������ض�λ�ø���һ�·���״�?λ
+            /*if(ptrMotionBlk->MotionDir == 1)  //������ض�λ�ø���һ�·���״�?λ
                     {
                             ptrMotionBlk->StatusWord |= BIT_DIR;
                     }
@@ -885,7 +885,7 @@ void MotionCtrl(void) {
             if (ptrMotionBlk->MotionMode == 1)  // �ֶ�ģʽ
             {                                   //��ͣģʽ
               ptrMotionBlk->MotionState = S_MOTION_PAUSE;
-              // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
+              // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
             } else {  //�Զ�������һ״̬
               ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateNext;
               ptrMotionBlk->SmallState = 0;
@@ -917,7 +917,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -935,7 +935,7 @@ void MotionCtrl(void) {
           if (ptrMotionBlk->MotionMode == 1)  // �ֶ�ģʽ
           {                                   //��ͣģʽ
             ptrMotionBlk->MotionState = S_MOTION_PAUSE;
-            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
+            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
           } else {  //�Զ�������һ״̬
             ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateNext;
             ptrMotionBlk->SmallState = 0;
@@ -966,7 +966,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -981,7 +981,7 @@ void MotionCtrl(void) {
           if (ptrMotionBlk->MotionMode == 1)  // �ֶ�ģʽ
           {                                   //��ͣģʽ
             ptrMotionBlk->MotionState = S_MOTION_PAUSE;
-            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
+            // ptrMotionBlk->SmallState = 0; // ����ͣ״̬��0���Ա�ɿ���ĳЩ���?
           } else {  //�Զ�������һ״̬
             ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateNext;
             ptrMotionBlk->SmallState = 0;
@@ -1007,7 +1007,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -1037,7 +1037,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -1071,7 +1071,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -1122,7 +1122,7 @@ void MotionCtrl(void) {
           SetMotorCtrlword(SlaveID, 0x000F);
 
           ptrMotionBlk->MotionStateLast =
-              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
+              ptrMotionBlk->MotionState;  //�´λ��ǴӸ�״̬��ʼ������������óɿ�ѡ��?
           ptrMotionBlk->MotionStateNext = CalcuNextState(
               ptrMotionBlk->MotionState, (ptrMotionBlk->StatusWord & BIT_DIR));
           ptrMotionBlk->MotionState = S_MOTION_IM_PAUSE;
@@ -1136,7 +1136,7 @@ void MotionCtrl(void) {
         ;  //������һ��������
       break;
 
-    case S_MOTION_PAUSE:  //ִ����һ����������?
+    case S_MOTION_PAUSE:  //ִ����һ����������?
       if ((ptrMotionBlk->StatusWord & BIT_SOFT_STOP) != 0) {
         if ((ptrMotionBlk->MotionStateLast == S_MOTION_CLOSE_M1M2) ||
             (ptrMotionBlk->MotionStateLast == S_MOTION_CLOSE_M3M4)) {
@@ -1164,7 +1164,7 @@ void MotionCtrl(void) {
         ptrMotionBlk->MotionState = ptrMotionBlk->MotionStateLast;
       } else {
         // ptrMotionBlk->MotionState = ptrMotionBlk->MotionState;
-        //�ȴ�����ָ�������?
+        //�ȴ�����ָ�������?
       }
 
       break;
@@ -1214,12 +1214,12 @@ void MotionCtrl(void) {
 void HandleSysState(void) {
   u16 i, times;
 
-  //����ŷ�״�?
+  //����ŷ�״�?
   i = (ptrServ[1]->StatusWord) | (ptrServ[2]->StatusWord) |
       (ptrServ[3]->StatusWord) | (ptrServ[4]->StatusWord) |
       (ptrServ[5]->StatusWord) | (ptrServ[6]->StatusWord) |
       (ptrServ[7]->StatusWord);
-  if ((i & 0x0008) != 0)  // �ŷ�״̬��bit3 Ϊ������?
+  if ((i & 0x0008) != 0)  // �ŷ�״̬��bit3 Ϊ������?
   {
     ptrMotionBlk->ErrCode |= SERVO_ERR;
   }
@@ -1406,7 +1406,7 @@ void HandleSysState(void) {
       }
       break;
     case SYS_FAULT:
-      if (0)  //�����������?
+      if (0)  //�����������?
       {
         ptrMotionBlk->SysState =
             SYS_RDY;  //���߸��ݴ��������������SYS_IDLE ״̬��can ����
@@ -1500,28 +1500,28 @@ void Motion_Open_M1M2(u16 *state) {
       Para[4] = 0;
       SlaveID = 1;
       // SetMotorSpd(SlaveID,M_OPEN_SPD1); //����ת��
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
           (ptrServ[SlaveID]->PosLocked -
            ptrCfgMotionPar->PosOpenLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       SlaveID = 2;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
           (ptrServ[SlaveID]->PosLocked -
            ptrCfgMotionPar->PosOpenLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       delay_us(TIME_INTERVAL_US);
       SlaveID = 1;
@@ -1538,7 +1538,7 @@ void Motion_Open_M1M2(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         }
       } else
@@ -1549,7 +1549,7 @@ void Motion_Open_M1M2(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         }
       } else
@@ -1579,31 +1579,33 @@ void Motion_Open_M3M4(u16 *state) {
   switch (*state) {
     case 0:
       SlaveID = 3;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
-                                                        // SetMotorSpd(SlaveID,M_OPEN_SPD1);
-                                                        // //����ת��
+      SetMotorSpd(
+          SlaveID,
+          ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
+                                       // SetMotorSpd(SlaveID,M_OPEN_SPD1);
+                                       // //����ת��
 
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
           (ptrServ[SlaveID]->PosLocked -
            ptrCfgMotionPar->PosOpenLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       SlaveID = 4;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
           (ptrServ[SlaveID]->PosLocked -
            ptrCfgMotionPar->PosOpenLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       delay_us(TIME_INTERVAL_US);
       SlaveID = 3;
@@ -1620,7 +1622,7 @@ void Motion_Open_M3M4(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         }
       } else
@@ -1631,7 +1633,7 @@ void Motion_Open_M3M4(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         }
       } else
@@ -1662,22 +1664,22 @@ void Motion_Close_M1M2(u16 *state) {
     case 0:
 
       SlaveID = 1;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked +
                                1000));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       SlaveID = 2;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked +
                                1000));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       delay_us(TIME_INTERVAL_US);
       SlaveID = 1;
@@ -1704,7 +1706,7 @@ void Motion_Close_M1M2(u16 *state) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
 
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         } else {
           if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
@@ -1715,7 +1717,7 @@ void Motion_Close_M1M2(u16 *state) {
                   ptrCfgMotionPar->PosFactor)));  //�����п����Ǵ��ġ��Ǿ��� ��-��
             delay_us(TIME_INTERVAL_US);
             SetMotorCtrlword(SlaveID, 0x000F);
-            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
           }
         }
       } else
@@ -1737,7 +1739,7 @@ void Motion_Close_M1M2(u16 *state) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
 
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         } else {
           if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
@@ -1748,7 +1750,7 @@ void Motion_Close_M1M2(u16 *state) {
                   ptrCfgMotionPar->PosFactor)));  //�����п����Ǵ��ġ��Ǿ��� ��-��
             delay_us(TIME_INTERVAL_US);
             SetMotorCtrlword(SlaveID, 0x000F);
-            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
           }
         }
       } else
@@ -1788,22 +1790,22 @@ void Motion_Close_M3M4(u16 *state) {
   switch (*state) {
     case 0:
       SlaveID = 3;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked +
                                1000));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       SlaveID = 4;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd*SPEED_FACTOR);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked +
                                1000));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       delay_us(TIME_INTERVAL_US);
       SlaveID = 3;
@@ -1830,7 +1832,7 @@ void Motion_Close_M3M4(u16 *state) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
 
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         } else {
           if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
@@ -1841,7 +1843,7 @@ void Motion_Close_M3M4(u16 *state) {
                   ptrCfgMotionPar->PosFactor)));  //�����п����Ǵ��ġ��Ǿ��� ��-��
             delay_us(TIME_INTERVAL_US);
             SetMotorCtrlword(SlaveID, 0x000F);
-            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
           }
         }
       } else
@@ -1863,7 +1865,7 @@ void Motion_Close_M3M4(u16 *state) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
 
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         } else {
           if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
@@ -1874,7 +1876,7 @@ void Motion_Close_M3M4(u16 *state) {
                   ptrCfgMotionPar->PosFactor)));  //�����п����Ǵ��ġ��Ǿ��� ��-��
             delay_us(TIME_INTERVAL_US);
             SetMotorCtrlword(SlaveID, 0x000F);
-            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
           }
         }
       } else
@@ -1945,7 +1947,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
 				
 				SlaveID = 5;
 				SetMotorAbsPos(SlaveID,(ptrServ[SlaveID ]->PosLocked + ptrCfgMotionPar->PosClimbLen*ptrCfgMotionPar->PosFactor));			//�����п����Ǵ��ġ��Ǿ��� ��-��	
-				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
+				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
 				delay_us(TIME_INTERVAL_US);	
 
 
@@ -1961,7 +1963,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
 				
 				SlaveID = 6;
 				SetMotorAbsPos(SlaveID,(ptrServ[SlaveID ]->PosLocked + ClimbLenTemp*ptrCfgMotionPar->PosFactor));			//�����п����Ǵ��ġ��Ǿ��� ��-��	
-				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
+				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
 				delay_us(TIME_INTERVAL_US);				
 
 				//���Ƹ�3���ƶ��ľ���
@@ -1975,7 +1977,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
 				}				
 				SlaveID = 7;
 				SetMotorAbsPos(SlaveID,(ptrServ[SlaveID ]->PosLocked + ClimbLenTemp*ptrCfgMotionPar->PosFactor));			//�����п����Ǵ��ġ��Ǿ��� ��-��	
-				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?	
+				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?	
 				delay_us(TIME_INTERVAL_US);				
 				
 			  delay_us(TIME_INTERVAL_US);					
@@ -1994,7 +1996,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
 
       SlaveID = 5;
       delay_us(TIME_INTERVAL_US);
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd);  //����M5ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd*SPEED_FACTOR);  //����M5ת��
       delay_us(TIME_INTERVAL_US);
       // SetMotorCurrentLimit(SlaveID,MAX_IQ2);//��������ȵ�������ȵ�����3��
       // delay_us(TIME_INTERVAL_US);
@@ -2003,11 +2005,11 @@ void Motion_Extend_M5M6M7(u16 *state) {
           (ptrServ[SlaveID]->PosLocked +
            ptrCfgMotionPar->PosClimbLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
       delay_us(TIME_INTERVAL_US);
 
       SlaveID = 6;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd);  //����M6ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd*SPEED_FACTOR);  //����M6ת��
       delay_us(TIME_INTERVAL_US);
       //	SetMotorCurrentLimit(SlaveID,MAX_IQ2);//��������ȵ�������ȵ�����3��
       // delay_us(TIME_INTERVAL_US);
@@ -2023,11 +2025,11 @@ void Motion_Extend_M5M6M7(u16 *state) {
           (ptrServ[SlaveID]->PosLocked +
            ClimbLenTemp *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
       delay_us(TIME_INTERVAL_US);
 
       SlaveID = 7;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd);  //����M7ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd*SPEED_FACTOR);  //����M7ת��
       delay_us(TIME_INTERVAL_US);
       // SetMotorCurrentLimit(SlaveID,MAX_IQ2);//��������ȵ�������ȵ�����3��
       // delay_us(TIME_INTERVAL_US);
@@ -2042,7 +2044,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
           (ptrServ[SlaveID]->PosLocked +
            ClimbLenTemp *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
       delay_us(TIME_INTERVAL_US);
 
       //
@@ -2207,7 +2209,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= (0x0001 << SlaveID);
         }
       } else
@@ -2218,7 +2220,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= (0x0001 << SlaveID);
         }
       } else
@@ -2229,7 +2231,7 @@ void Motion_Extend_M5M6M7(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= (0x0001 << SlaveID);
         }
       } else
@@ -2289,17 +2291,17 @@ void Motion_Shorten_M5M6M7(u16 *state) {
 			
 				SlaveID = 5;
 				SetMotorAbsPos(SlaveID,(ptrServ[SlaveID ]->PosLocked));			//�����п����Ǵ��ġ��Ǿ��� ��-��	
-				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
+				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
 				delay_us(TIME_INTERVAL_US);				
 			
 				SlaveID = 6;
 				SetMotorAbsPos(SlaveID,(ptrServ[SlaveID ]->PosLocked));			//�����п����Ǵ��ġ��Ǿ��� ��-��	
-				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
+				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
 				delay_us(TIME_INTERVAL_US);				
 			
 				SlaveID = 7;	
 				SetMotorAbsPos(SlaveID,(ptrServ[SlaveID ]->PosLocked));			//�����п����Ǵ��ġ��Ǿ��� ��-��	
-				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
+				ptrServ[SlaveID]->StatusWord &= ~0x0400; //�Ѷ�λ��ɸ��?
 				delay_us(TIME_INTERVAL_US);				
 			
 			
@@ -2317,33 +2319,33 @@ void Motion_Shorten_M5M6M7(u16 *state) {
 #else
       SlaveID = 5;
       delay_us(TIME_INTERVAL_US);
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd);  //����M5ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd*SPEED_FACTOR);  //����M5ת��
       delay_us(TIME_INTERVAL_US);
       //	SetMotorCurrentLimit(SlaveID,MAX_IQ2);//��������ȵ�������ȵ�����3��
       // delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID, (ptrServ[SlaveID]->PosLocked));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
       delay_us(TIME_INTERVAL_US);
 
       SlaveID = 6;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd);  //����M6ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd*SPEED_FACTOR);  //����M6ת��
       delay_us(TIME_INTERVAL_US);
       //	SetMotorCurrentLimit(SlaveID,MAX_IQ2);//��������ȵ�������ȵ�����3��
       // delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID, (ptrServ[SlaveID]->PosLocked));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
       delay_us(TIME_INTERVAL_US);
 
       SlaveID = 7;
-      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd);  //����M7ת��
+      SetMotorSpd(SlaveID, ptrCfgMotionPar->ClimbSpd*SPEED_FACTOR);  //����M7ת��
       delay_us(TIME_INTERVAL_US);
       //	SetMotorCurrentLimit(SlaveID,MAX_IQ2);//��������ȵ�������ȵ�����3��
       // delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID, (ptrServ[SlaveID]->PosLocked));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
       delay_us(TIME_INTERVAL_US);
 
       /* if ((ptrMotionBlk->M1orM3OpenState & 0x0001) != 0)
@@ -2427,46 +2429,46 @@ void Motion_Shorten_M5M6M7(u16 *state) {
           ((s32)pos_open2_locked + (ptrCfgMotionPar->ClimbSpd / 128) *
                                        (s32)(ptrCfgMotionPar->CompCoff))) {  //
         if ((ptrMotionBlk->M1orM3OpenState & 0x0001) != 0) {  //���ظ�����λ��
-          SlaveID = 1;
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
-                                   (ptrCfgMotionPar->PosOpenLen) *
-                                       ptrCfgMotionPar->PosFactor));
-          ptrServ[SlaveID]->StatusWord &= ~0x0400;
-          delay_us(TIME_INTERVAL_US);
-          SlaveID = 2;
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
-                                   (ptrCfgMotionPar->PosOpenLen) *
-                                       ptrCfgMotionPar->PosFactor));
-          ptrServ[SlaveID]->StatusWord &= ~0x0400;
-          pos_open2_locked = 0xffffffff;
+          // SlaveID = 1;
+          // SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
+          //                          (ptrCfgMotionPar->PosOpenLen) *
+          //                              ptrCfgMotionPar->PosFactor));
+          // ptrServ[SlaveID]->StatusWord &= ~0x0400;
+          // delay_us(TIME_INTERVAL_US);
+          // SlaveID = 2;
+          // SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
+          //                          (ptrCfgMotionPar->PosOpenLen) *
+          //                              ptrCfgMotionPar->PosFactor));
+          // ptrServ[SlaveID]->StatusWord &= ~0x0400;
+          // pos_open2_locked = 0xffffffff;
 
-          delay_us(TIME_INTERVAL_US);
-          SlaveID = 1;
-          SetMotorCtrlword(SlaveID, 0x000F);
-          SlaveID = 2;
-          SetMotorCtrlword(SlaveID, 0x000F);
-          delay_us(TIME_INTERVAL_US);
+          // delay_us(TIME_INTERVAL_US);
+          // SlaveID = 1;
+          // SetMotorCtrlword(SlaveID, 0x000F);
+          // SlaveID = 2;
+          // SetMotorCtrlword(SlaveID, 0x000F);
+          // delay_us(TIME_INTERVAL_US);
         } else if ((ptrMotionBlk->M1orM3OpenState & 0x0002) != 0) {
           //���ظ�����λ��
-          SlaveID = 3;
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
-                                   (ptrCfgMotionPar->PosOpenLen) *
-                                       ptrCfgMotionPar->PosFactor));
-          ptrServ[SlaveID]->StatusWord &= ~0x0400;
-          delay_us(TIME_INTERVAL_US);
-          SlaveID = 4;
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
-                                   (ptrCfgMotionPar->PosFactor) *
-                                       ptrCfgMotionPar->PosFactor));
-          ptrServ[SlaveID]->StatusWord &= ~0x0400;
-          pos_open2_locked = 0xffffffff;
+          // SlaveID = 3;
+          // SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
+          //                          (ptrCfgMotionPar->PosOpenLen) *
+          //                              ptrCfgMotionPar->PosFactor));
+          // ptrServ[SlaveID]->StatusWord &= ~0x0400;
+          // delay_us(TIME_INTERVAL_US);
+          // SlaveID = 4;
+          // SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked -
+          //                          (ptrCfgMotionPar->PosFactor) *
+          //                              ptrCfgMotionPar->PosFactor));
+          // ptrServ[SlaveID]->StatusWord &= ~0x0400;
+          // pos_open2_locked = 0xffffffff;
 
-          delay_us(TIME_INTERVAL_US);
-          SlaveID = 3;
-          SetMotorCtrlword(SlaveID, 0x000F);
-          SlaveID = 4;
-          SetMotorCtrlword(SlaveID, 0x000F);
-          delay_us(TIME_INTERVAL_US);
+          // delay_us(TIME_INTERVAL_US);
+          // SlaveID = 3;
+          // SetMotorCtrlword(SlaveID, 0x000F);
+          // SlaveID = 4;
+          // SetMotorCtrlword(SlaveID, 0x000F);
+          // delay_us(TIME_INTERVAL_US);
         }
         pos_open2_locked = 0;  // ���ü�������ָ��
                                //
@@ -2513,7 +2515,7 @@ void Motion_Shorten_M5M6M7(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= (0x0001 << SlaveID);
         }
       } else
@@ -2524,7 +2526,7 @@ void Motion_Shorten_M5M6M7(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= (0x0001 << SlaveID);
         }
       } else
@@ -2535,7 +2537,7 @@ void Motion_Shorten_M5M6M7(u16 *state) {
         if ((ptrServ[SlaveID]->StatusWord & 0x0400) != 0) {
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= (0x0001 << SlaveID);
         }
       } else
@@ -2566,7 +2568,7 @@ void Motion_Home_M1M2(u16 *state) {
       SlaveID = 1;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2578,7 +2580,7 @@ void Motion_Home_M1M2(u16 *state) {
       SlaveID = 2;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2602,7 +2604,7 @@ void Motion_Home_M1M2(u16 *state) {
         if ((abs(ptrServ[SlaveID]->TrqPV) >=
              ptrServ[SlaveID]->MaxcurrentLocked) &&
             (abs(ptrServ[SlaveID]->PosPV - ptrServ[SlaveID]->PosPV_Last) <
-             100))  // ��������ǰ������λ��û�д��?
+             100))  // ��������ǰ������λ��û�д��?
         // if(abs(ptrServ[SlaveID]->TrqPV) >=
         // ptrServ[SlaveID]->MaxcurrentLocked)
         {
@@ -2612,7 +2614,7 @@ void Motion_Home_M1M2(u16 *state) {
           SetMotorCtrlword(SlaveID, 0x000F);
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         } else {
           SetMotorAbsPos(
@@ -2641,7 +2643,7 @@ void Motion_Home_M1M2(u16 *state) {
           SetMotorCtrlword(SlaveID, 0x000F);
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         } else {
           SetMotorAbsPos(
@@ -2680,7 +2682,7 @@ void Motion_Home_M3M4(u16 *state) {
       SlaveID = 3;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2692,7 +2694,7 @@ void Motion_Home_M3M4(u16 *state) {
       SlaveID = 4;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2716,7 +2718,7 @@ void Motion_Home_M3M4(u16 *state) {
         if ((abs(ptrServ[SlaveID]->TrqPV) >=
              ptrServ[SlaveID]->MaxcurrentLocked) &&
             (abs(ptrServ[SlaveID]->PosPV - ptrServ[SlaveID]->PosPV_Last) <
-             100))  // ��������ǰ������λ��û�д��?
+             100))  // ��������ǰ������λ��û�д��?
         // if(abs(ptrServ[SlaveID]->TrqPV) >=
         // ptrServ[SlaveID]->MaxcurrentLocked)
         {
@@ -2726,7 +2728,7 @@ void Motion_Home_M3M4(u16 *state) {
           SetMotorCtrlword(SlaveID, 0x000F);
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         } else {
           SetMotorAbsPos(
@@ -2755,7 +2757,7 @@ void Motion_Home_M3M4(u16 *state) {
           SetMotorCtrlword(SlaveID, 0x000F);
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         } else {
           SetMotorAbsPos(
@@ -2806,15 +2808,15 @@ void Motion_Home_M5M6M7(u16 *state) {
 				delay_ms(10);
 			
 				SlaveID = 5;
-				SetMotorCurrentLimit(SlaveID,ptrCfgMotionPar->Iq2Limit);//��������ȵ���?
+				SetMotorCurrentLimit(SlaveID,ptrCfgMotionPar->Iq2Limit);//��������ȵ���?
 				delay_us(TIME_INTERVAL_US);			
 			
 				SlaveID = 6;
-				SetMotorCurrentLimit(SlaveID,ptrCfgMotionPar->Iq2Limit);//��������ȵ���?
+				SetMotorCurrentLimit(SlaveID,ptrCfgMotionPar->Iq2Limit);//��������ȵ���?
 				delay_us(TIME_INTERVAL_US);				
 			
 				SlaveID = 7;
-				SetMotorCurrentLimit(SlaveID,ptrCfgMotionPar->Iq2Limit);//��������ȵ���?
+				SetMotorCurrentLimit(SlaveID,ptrCfgMotionPar->Iq2Limit);//��������ȵ���?
 				delay_us(TIME_INTERVAL_US);				
 				
 				delay_ms(10);
@@ -2848,7 +2850,7 @@ void Motion_Home_M5M6M7(u16 *state) {
       delay_us(TIME_INTERVAL_US);
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpdM5M6M7);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2859,7 +2861,7 @@ void Motion_Home_M5M6M7(u16 *state) {
       SlaveID = 6;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpdM5M6M7);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2870,7 +2872,7 @@ void Motion_Home_M5M6M7(u16 *state) {
       SlaveID = 7;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpdM5M6M7);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -2897,7 +2899,7 @@ void Motion_Home_M5M6M7(u16 *state) {
         if ((abs(ptrServ[SlaveID]->TrqPV) >=
              ptrServ[SlaveID]->MaxcurrentLocked) &&
             (abs(ptrServ[SlaveID]->PosPV - ptrServ[SlaveID]->PosPV_Last) <
-             20))  // ��������ǰ������λ��û�д��?
+             20))  // ��������ǰ������λ��û�д��?
         // if(abs(ptrServ[SlaveID]->TrqPV) >=
         // ptrServ[SlaveID]->MaxcurrentLocked)
         {
@@ -2909,12 +2911,14 @@ void Motion_Home_M5M6M7(u16 *state) {
 
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0001;
         } else {
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosPV -
-                                   (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
-                                                                         //��-��
+          SetMotorAbsPos(
+              SlaveID,
+              (ptrServ[SlaveID]->PosPV -
+               (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
+                                                     //��-��
 
           delay_us(TIME_INTERVAL_US);
           SetMotorCtrlword(SlaveID, 0x000F);
@@ -2940,12 +2944,14 @@ void Motion_Home_M5M6M7(u16 *state) {
 
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0002;
         } else {
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosPV -
-                                   (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
-                                                                         //��-��
+          SetMotorAbsPos(
+              SlaveID,
+              (ptrServ[SlaveID]->PosPV -
+               (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
+                                                     //��-��
 
           delay_us(TIME_INTERVAL_US);
           SetMotorCtrlword(SlaveID, 0x000F);
@@ -2970,12 +2976,14 @@ void Motion_Home_M5M6M7(u16 *state) {
           SetMotorCtrlword(SlaveID, 0x000F);
           // SetMotorCtrlword(SlaveID,(SERV_HALT_BIT|ptrServ[SlaveID]->CtrlWord));
           // //������ָͣ��
-          delay_ms(1000);
+          delay_ms(INTERVAL_DELAY_TIME_MS);
           finish_flag |= 0x0004;
         } else {
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosPV -
-                                   (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
-                                                                         //��-��
+          SetMotorAbsPos(
+              SlaveID,
+              (ptrServ[SlaveID]->PosPV -
+               (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
+                                                     //��-��
 
           delay_us(TIME_INTERVAL_US);
           SetMotorCtrlword(SlaveID, 0x000F);
@@ -3010,7 +3018,7 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 1;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3022,7 +3030,7 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 2;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3033,7 +3041,7 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 3;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3046,7 +3054,7 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 4;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3075,7 +3083,7 @@ void Motion_Home_All(u16 *state) {
         if ((abs(ptrServ[SlaveID]->TrqPV) >=
              ptrServ[SlaveID]->MaxcurrentLocked) &&
             (abs(ptrServ[SlaveID]->PosPV - ptrServ[SlaveID]->PosPV_Last) <
-             100))  // ��������ǰ������λ��û�д��?
+             100))  // ��������ǰ������λ��û�д��?
         // if(abs(ptrServ[SlaveID]->TrqPV) >=
         // ptrServ[SlaveID]->MaxcurrentLocked)
         {
@@ -3131,7 +3139,7 @@ void Motion_Home_All(u16 *state) {
         if ((abs(ptrServ[SlaveID]->TrqPV) >=
              ptrServ[SlaveID]->MaxcurrentLocked) &&
             (abs(ptrServ[SlaveID]->PosPV - ptrServ[SlaveID]->PosPV_Last) <
-             100))  // ��������ǰ������λ��û�д��?
+             100))  // ��������ǰ������λ��û�д��?
         // if(abs(ptrServ[SlaveID]->TrqPV) >=
         // ptrServ[SlaveID]->MaxcurrentLocked)
         {
@@ -3192,26 +3200,26 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 1;
       SetMotorSpd(SlaveID, M_OPEN_SPD1);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
           (ptrServ[SlaveID]->PosLocked -
            ptrCfgMotionPar->PosOpenLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       SlaveID = 2;
       SetMotorSpd(SlaveID, M_OPEN_SPD1);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, MAX_IQ1);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
           (ptrServ[SlaveID]->PosLocked -
            ptrCfgMotionPar->PosOpenLen *
                ptrCfgMotionPar->PosFactor));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       delay_us(TIME_INTERVAL_US);
       SlaveID = 1;
@@ -3254,7 +3262,7 @@ void Motion_Home_All(u16 *state) {
       delay_us(TIME_INTERVAL_US);
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpdM5M6M7);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3265,7 +3273,7 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 6;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpdM5M6M7);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3276,7 +3284,7 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 7;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->HomingSpdM5M6M7);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq2Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(
           SlaveID,
@@ -3303,7 +3311,7 @@ void Motion_Home_All(u16 *state) {
         if ((abs(ptrServ[SlaveID]->TrqPV) >=
              ptrServ[SlaveID]->MaxcurrentLocked) &&
             (abs(ptrServ[SlaveID]->PosPV - ptrServ[SlaveID]->PosPV_Last) <
-             20))  // ��������ǰ������λ��û�д��?
+             20))  // ��������ǰ������λ��û�д��?
         // if(abs(ptrServ[SlaveID]->TrqPV) >=
         // ptrServ[SlaveID]->MaxcurrentLocked)
         {
@@ -3318,9 +3326,11 @@ void Motion_Home_All(u16 *state) {
 
           finish_flag |= 0x0001;
         } else {
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosPV -
-                                   (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
-                                                                         //��-��
+          SetMotorAbsPos(
+              SlaveID,
+              (ptrServ[SlaveID]->PosPV -
+               (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
+                                                     //��-��
 
           delay_us(TIME_INTERVAL_US);
           SetMotorCtrlword(SlaveID, 0x000F);
@@ -3349,9 +3359,11 @@ void Motion_Home_All(u16 *state) {
 
           finish_flag |= 0x0002;
         } else {
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosPV -
-                                   (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
-                                                                         //��-��
+          SetMotorAbsPos(
+              SlaveID,
+              (ptrServ[SlaveID]->PosPV -
+               (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
+                                                     //��-��
 
           delay_us(TIME_INTERVAL_US);
           SetMotorCtrlword(SlaveID, 0x000F);
@@ -3379,9 +3391,11 @@ void Motion_Home_All(u16 *state) {
 
           finish_flag |= 0x0004;
         } else {
-          SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosPV -
-                                   (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
-                                                                         //��-��
+          SetMotorAbsPos(
+              SlaveID,
+              (ptrServ[SlaveID]->PosPV -
+               (ptrCfgMotionPar->DeltaPosM5M6M7)));  //�����п����Ǵ��ġ��Ǿ���
+                                                     //��-��
 
           delay_us(TIME_INTERVAL_US);
           SetMotorCtrlword(SlaveID, 0x000F);
@@ -3398,20 +3412,20 @@ void Motion_Home_All(u16 *state) {
       SlaveID = 1;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked +
                                500));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       SlaveID = 2;
       SetMotorSpd(SlaveID, ptrCfgMotionPar->CloseSpd);  //����ת��
       delay_us(TIME_INTERVAL_US);
-      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
+      SetMotorCurrentLimit(SlaveID, ptrCfgMotionPar->Iq1Limit);  //��������ȵ���?
       delay_us(TIME_INTERVAL_US);
       SetMotorAbsPos(SlaveID, (ptrServ[SlaveID]->PosLocked +
                                500));  //�����п����Ǵ��ġ��Ǿ��� ��-��
-      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+      ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
 
       delay_us(TIME_INTERVAL_US);
       SlaveID = 1;
@@ -3448,7 +3462,7 @@ void Motion_Home_All(u16 *state) {
                   ptrCfgMotionPar->PosFactor)));  //�����п����Ǵ��ġ��Ǿ��� ��-��
             delay_us(TIME_INTERVAL_US);
             SetMotorCtrlword(SlaveID, 0x000F);
-            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
           }
         }
       } else
@@ -3474,7 +3488,7 @@ void Motion_Home_All(u16 *state) {
                   ptrCfgMotionPar->PosFactor)));  //�����п����Ǵ��ġ��Ǿ��� ��-��
             delay_us(TIME_INTERVAL_US);
             SetMotorCtrlword(SlaveID, 0x000F);
-            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
+            ptrServ[SlaveID]->StatusWord &= ~0x0400;  //�Ѷ�λ��ɸ��?
           }
         }
       } else

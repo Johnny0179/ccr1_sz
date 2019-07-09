@@ -13,24 +13,23 @@
 #include "sys.h"
 #include "usart.h"
 
-/////////////////////////UCOSII�����ջ����?///////////////////////////////////
+/////////////////////////UCOSII�����ջ����?///////////////////////////////////
 // START ����
 //�����������ȼ�
-#define START_TASK_PRIO \
-  10  //��ʼ��������ȼ������?���?
-//���������ջ���?
+#define START_TASK_PRIO 10  //��ʼ��������ȼ������?���?
+//���������ջ���?
 #define START_STK_SIZE 64
-//���������ջ�ռ�?
+//���������ջ�ռ�?
 OS_STK START_TASK_STK[START_STK_SIZE];
 //�������ӿ�
 void start_task(void *pdata);
 
-// LED���񼰷�����������ָʾ�����?
+// LED���񼰷�����������ָʾ�����?
 //�����������ȼ�
 #define LED_TASK_PRIO 50
-//���������ջ���?
+//���������ջ���?
 #define LED_STK_SIZE 64
-//���������ջ�ռ�?
+//���������ջ�ռ�?
 OS_STK LED_TASK_STK[LED_STK_SIZE];
 //�������ӿ�
 void led_task(void *pdata);
@@ -38,14 +37,14 @@ void led_task(void *pdata);
 //����λ��PC��ͨ������
 //�����������ȼ�
 #define PcCom_TASK_PRIO 15
-//���������ջ���?
+//���������ջ���?
 #define PcCom_STK_SIZE 256
-//���������ջ�ռ�?
+//���������ջ�ռ�?
 OS_STK PcCom_TASK_STK[PcCom_STK_SIZE];
 //�������ӿ�
 void PcCom_task(void *pdata);
 
-//"�����?"����
+//"�����?"����
 #define TaskPlan_TASK_PRIO 8
 
 #define TaskPlan_STK_SIZE 256
@@ -84,9 +83,9 @@ void RdSensor_task(void *pdata);
 //����ɨ������
 //�����������ȼ�
 #define KEY_TASK_PRIO 3
-//���������ջ���?
+//���������ջ���?
 #define KEY_STK_SIZE 256  // 64
-//���������ջ�ռ�?
+//���������ջ�ռ�?
 OS_STK KEY_TASK_STK[KEY_STK_SIZE];
 //�������ӿ�
 void key_task(void *pdata);
@@ -118,8 +117,8 @@ void start_task(void *pdata) {
   pdata = pdata;
   // sem_printf=OSSemCreate(1);		//������ӡ�ź���
 
-  OSStatInit();  //��ʼ��ͳ������.��������?1��������
-  OS_ENTER_CRITICAL();  //�����ٽ���(�޷����жϴ��?)
+  OSStatInit();  //��ʼ��ͳ������.��������?1��������
+  OS_ENTER_CRITICAL();  //�����ٽ���(�޷����жϴ��?)
   OSTaskCreate(led_task, (void *)0, (OS_STK *)&LED_TASK_STK[LED_STK_SIZE - 1],
                LED_TASK_PRIO);
   // OSTaskCreate(key_task,(void
@@ -139,7 +138,7 @@ void start_task(void *pdata) {
                (OS_STK *)&RdSensor_TASK_STK[RdSensor_STK_SIZE - 1],
                RdSensor_TASK_PRIO);
   OSTaskSuspend(START_TASK_PRIO);  //������ʼ����.
-  OS_EXIT_CRITICAL();  //�˳��ٽ���(���Ա��жϴ��?)
+  OS_EXIT_CRITICAL();  //�˳��ٽ���(���Ա��жϴ��?)
 }
 // LED����
 void led_task(void *pdata) {
@@ -148,7 +147,7 @@ void led_task(void *pdata) {
   LED1 = 1;  // red led off
   Steps_Last = ptrCfgMotionPar->RunSteps;
   ptrMotionBlk->StateOfCharge = 500;  //ʣ��50%����
-  ptrMotionBlk->BatVolt = 240;        //��ص��?24V x0.1
+  ptrMotionBlk->BatVolt = 240;        //��ص��?24V x0.1
   ptrMotionBlk->BatCurrent = 80;      //����8A x0.1
   ptrMotionBlk->BatTemp = 456;        // �¶� x0.1
 
@@ -162,8 +161,7 @@ void led_task(void *pdata) {
       }
     } else {
       if (Para[DEBUG_EN_ADDR] == DEBUG_DIS_CMD) {
-        ptrMotionBlk->MotionCmdCode =
-            14;  //ȡ������ģʽʱ�����»�1��0
+        ptrMotionBlk->MotionCmdCode = 14;  //ȡ������ģʽʱ�����»�1��0
         delay_ms(10);
         DebugFlag = 0;
         Para[DEBUG_EN_ADDR] = 0;
@@ -172,10 +170,8 @@ void led_task(void *pdata) {
 
     //дeeprom����
     if (Para[SAVE_PAR_ADDR] == SAVE_PAR_CMD) {
-      AT24CXX_Write(
-          0, (u8 *)(Para),
-          (SAVE_PAR_NUM *
-           2));  //��ָ����ַ��ʼд��ָ�����ȵ�����
+      AT24CXX_Write(0, (u8 *)(Para),
+                    (SAVE_PAR_NUM * 2));  //��ָ����ַ��ʼд��ָ�����ȵ�����
       // void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead);
       // //��ָ����ַ��ʼ����ָ�����ȵ�����
       Para[SAVE_PAR_ADDR] = 0;
@@ -242,7 +238,7 @@ void PcCom_task(void *pdata) {
   }
 }
 
-//�����? ����
+//�����? ����
 void TaskPlan_task(void *pdata) {
   while (1) {
     // printf("In TaskPlan_task \n");
@@ -275,18 +271,14 @@ void ServoCom_task(void *pdata) {
   CanInit();
 
   //�ָ�eeprom ����
-  AT24CXX_Read(
-      0, (u8 *)(Para),
-      (SAVE_PAR_NUM *
-       2));  //��ָ����ַ��ʼ����ָ�����ȵ�����
+  AT24CXX_Read(0, (u8 *)(Para),
+               (SAVE_PAR_NUM * 2));  //��ָ����ַ��ʼ����ָ�����ȵ�����
   if (Para[Judge_SAVE_PAR_ADDR] != 0x55aa) {  //�״γ�ʼ������
     Para[Judge_SAVE_PAR_ADDR] = 0x55aa;
     Para[SLAVE_ADDR] = 1;  //ͨ�ŵ�ַ
     MotionInit();
-    AT24CXX_Write(
-        0, (u8 *)(Para),
-        (SAVE_PAR_NUM *
-         2));  //��ָ����ַ��ʼд��ָ�����ȵ�����
+    AT24CXX_Write(0, (u8 *)(Para),
+                  (SAVE_PAR_NUM * 2));  //��ָ����ַ��ʼд��ָ�����ȵ�����
   }
 
   VarClear();

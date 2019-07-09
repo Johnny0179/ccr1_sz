@@ -8,15 +8,17 @@
 #define Para dGlbReg
 #endif
 
-//µç»ú²ÎÊý
+//debug
+#define SPEED_FACTOR 0.5
+#define INTERVAL_DELAY_TIME_MS 500 
 
-//±§½ôµç»ú
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define RATED_IQ1 2760
 #define MAX_IQ1 RATED_IQ1 * 3
 #define NOMINAL_TORQUE1 57.8
 #define REDUCTION_RATIO1 83
 
-//Éý½µµç»ú
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define RATED_IQ2 4260
 #define MAX_IQ2 RATED_IQ2 * 3
 #define NOMINAL_TORQUE2 121
@@ -26,22 +28,23 @@
 #define MAX_SPD1 10700
 #define M_OPEN_SPD1 RATED_SPD1
 
-#define RATED_SPD2 7160 * 0.6
+#define RATED_SPD2 7160 * 0.7
+//#define RATED_SPD2 3000
 #define MAX_SPD2 7720
 
-#define LONG_POS 10000  //Éý½µµÄÎ»ÖÃ
+#define LONG_POS 10000  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 #define SHORT_POS 0
 
 #define ORG_POS_OFFSET 10000
 
 #define MOTION_EN_BIT 0x0001
-#define TARGET_REACH_BIT 0x0200  //×´Ì¬×ÖµÄÎ»ÖÃµ½´ïÐÅºÅ
+#define TARGET_REACH_BIT 0x0200  //×´Ì¬ï¿½Öµï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½Åºï¿½
 
 //#define (ptrMotionBlk->DeltaPos * ptrMotionBlk->PosFactor) 1000
 #define MOTOR_UPDOWN_POS 1000
 
 #define MOTOR_MAX_CURRENT \
-  500  //Õâ¸öÖÃÎª¶àÉÙ£¬ÐèÒª¸ù¾Ý²âÊÔµÄ½á¹¹À´ÐÞ¸Ä£¬ºÍÔØÖØ,Ä¦²ÁÏµÊý£¬ÇãÐ±¶ÈÓÐ¹Ø
+  500  //ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ù£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ý²ï¿½ï¿½ÔµÄ½á¹¹ï¿½ï¿½ï¿½Þ¸Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ä¦ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Ð¹ï¿½
 #define AUTO_MODE 0
 
 typedef enum enum_SystemState {
@@ -53,14 +56,14 @@ typedef enum enum_SystemState {
 } enum_SystemStateTYPE;
 
 typedef enum enum_motionState {
-  S_MOTION_IDLE = 0,  //Ö´ÐÐÍêÒ»×´Ì¬µÄÔÝÍ£×´Ì¬
+  S_MOTION_IDLE = 0,  //Ö´ï¿½ï¿½ï¿½ï¿½Ò»×´Ì¬ï¿½ï¿½ï¿½ï¿½Í£×´Ì¬
   S_MOTION_OPEN_M1M2 = 1,
-  S_MOTION_EXTEND_M5M6M7,  //ÏñÉÏ·½ÏòÉý³¤,ºÍ
-                           // S_MOTION_DN_SHORTEN_M5M6M7£¬ÆäÊµÊÇÒ»ÑùµÄ
+  S_MOTION_EXTEND_M5M6M7,  //ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½
+                           // S_MOTION_DN_SHORTEN_M5M6M7ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
   S_MOTION_CLOSE_M1M2,
   S_MOTION_OPEN_M3M4,
-  S_MOTION_SHORTEN_M5M6M7,  //ÏòÉÏ·½ÏòËõ¶Ì£¬ºÍS_MOTION_DN_EXTEND_M5M6M7
-                            //Ò»Ñù£¬ÊµÏÖ
+  S_MOTION_SHORTEN_M5M6M7,  //ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì£ï¿½ï¿½ï¿½S_MOTION_DN_EXTEND_M5M6M7
+                            //Ò»ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
   S_MOTION_CLOSE_M3M4,
   S_MOTION_HOME_M1M2,
   S_MOTION_HOME_M3M4,
